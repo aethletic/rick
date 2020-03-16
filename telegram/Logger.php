@@ -30,7 +30,7 @@ class Logger
     {
         $date = date("d.m.Y H:i:s");
 
-        $new_line = "[$date] " . json_encode($update) . "\n\n\n\n";
+        $new_line = "[$date] " . json_encode($update) . "\n";
 
         file_put_contents($this->logs_dir . '/log_' . date("d-m-Y") . '.log', $new_line, FILE_APPEND);
     }
