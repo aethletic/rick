@@ -1,4 +1,8 @@
-# Rick 🤷‍♂️
+# Rick 🧙‍♂️
+
+Простая PHP библиотека для работы с Telegram Bot Api.
+
+Ready-for-use шаблон для быстрого старта [aethletic/rick-template](https://github.com/aethletic/rick-template "aethletic/rick-template").
 
 ## Установка
 `composer require aethletic/rick`
