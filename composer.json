@@ -1,0 +1,18 @@
+{
+    "name": "aethletic/rick",
+    "description": "A simple Telegram Bot Api library.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "Aethletic",
+        "email": "hello@botify.ru"
+    }],
+    "autoload": {
+        "psr-4": {
+            "Aethletic\\Telegram\\": "telegram/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
