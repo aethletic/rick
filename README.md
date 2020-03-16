@@ -5,7 +5,9 @@
 Ready-for-use шаблон для быстрого старта [aethletic/rick-template](https://github.com/aethletic/rick-template "aethletic/rick-template").
 
 ## Установка
-`composer require aethletic/rick`
+```
+$composer require aethletic/rick
+```
 
 ## Инициализация
 ```php
@@ -22,15 +24,9 @@ $rick = new Bot('1234:token', [
 use Aethletic\Telegram\Bot;
 
 $rick = new Bot('1234:token');
-$updates = $rick->getUpdates();
-$user = $rick->getUser();
 
-$rick->hear('{default}', function() use ($rick) {
-    $rick->say('К сожалению, я вас не понял...');
-});
-
-$rick->hear('Привет', function() use ($rick, $user) {
-    $rick->say("Привет {$user['firstname']}!");
+$rick->hear('Привет', function() use ($rick) {
+    $rick->say("И тебе привет!");
 });
 
 $rick->run();
