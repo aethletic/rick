@@ -102,6 +102,38 @@ class Bot
         return $this->execute('sendMessage', $params);
     }
 
+    public function reply($message, $keyboard = false)
+    {
+        $params = [
+            'chat_id'               => $this->user['chat_id'],
+            'text'                  => $this->randomMessage($message),
+            'parse_mode'            => 'markdown',
+            'reply_to_message_id'   => $this->updates['message']['message_id'],
+        ];
+
+        if ($keyboard) {
+            $params['reply_markup'] = $keyboard;
+        }
+
+        return $this->execute('sendMessage', $params);
+    }
+
+    public function edit($message_id, $message, $keyboard = false)
+    {
+        $params = [
+            'chat_id'      => $this->user['chat_id'],
+            'text'         => $this->randomMessage($message),
+            'parse_mode'   => 'markdown',
+            'message_id'   => $message_id,
+        ];
+
+        if ($keyboard) {
+            $params['reply_markup'] = $keyboard;
+        }
+
+        return $this->execute('editMessageText', $params);
+    }
+
     public function sendMessage($chat_id, $message, $keyboard = null)
     {
         $params = [
@@ -137,7 +169,7 @@ class Bot
             if (strpos($this->callbacks[$callback_data], '::') == false) {
                 return $this->callbacks[$callback_data]();
             } else {
-                return $this->callbacks[$message]($this, $this->user, $this->updates);
+                return $this->callbacks[$callback_data]($this, $this->user, $this->updates);
             }
         }
 
@@ -273,9 +305,10 @@ class Bot
     public function inline($inline)
     {
         if (!is_array($inline)) {
-            $keyboard = $this->keyboards[$inline];
+            $inline = $this->keyboards[$inline];
         }
-        return json_encode(['inline_keyboard' => $keyboard]);
+
+        return json_encode(['inline_keyboard' => $inline]);
     }
 
     public function notify($message)
