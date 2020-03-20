@@ -98,9 +98,9 @@ $rick->say('Привет мир!', $rick->keyboard([
 Сообщение с inline-клавиатурой
 ```php
 $rick->say('Привет мир!', $rick->inline([
-        [
-            ['text' => 'Поиск в Google', 'url' => 'https://google.com'],
-        ])
+    [
+	['text' => 'Поиск в Google', 'url' => 'https://google.com'],
+    ])
 ]);
 ```
 
