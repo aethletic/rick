@@ -4,6 +4,9 @@
 
 Ready-for-use шаблон для быстрого старта [aethletic/rick-template](https://github.com/aethletic/rick-template "aethletic/rick-template").
 
+## Внимание
+#### Документация не закончена, описаны не все методы.
+
 ## Установка
 ```
 $composer require aethletic/rick
