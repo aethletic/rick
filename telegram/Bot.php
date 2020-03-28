@@ -221,6 +221,10 @@ class Bot
     {
         $updates = json_decode(file_get_contents('php://input'), true);
 
+        // if (!is_array($updates)) { die(); }
+
+        $this->updates = $updates;
+
         if (!$this->isCallback()) {
             $this->user['chat_id'] = $updates['message']['chat']['id'];
             $this->user['chat_name'] = trim($updates['message']['chat']['first_name'] . ' ' . $updates['message']['chat']['last_name']);
@@ -244,8 +248,6 @@ class Bot
             $this->user['lang'] = $updates['callback_query']['from']['language_code'];
             $this->user['message'] = $updates['callback_query']['message']['text'];
         }
-
-        $this->updates = $updates;
     }
 
     public function register($variable, $value)
@@ -439,7 +441,7 @@ class Bot
     public function isCallback()
     {
         if (!is_array($this->updates)) {
-            return;
+            return false;
         }
 
         return array_key_exists('callback_query', $this->updates);
@@ -449,7 +451,7 @@ class Bot
     {
 
         if ($this->updates == '') {
-            $this->json(['message' => 'Обновлений нет']);
+            ;
             return;
         }
 
