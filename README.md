@@ -613,7 +613,7 @@ $rick->sendVideo($chat_id, 'https://example.com/video.mp4');
 $rick->sendVideo($chat_id, File::upload('/storage/video.mp4'));
 
 $rick->sendAudio($chat_id, 'https://example.com/audio.mp3');
-$rick->sendAudio($chat_id, File::upload('/storage/audio.mp3));
+$rick->sendAudio($chat_id, File::upload('/storage/audio.mp3'));
 
 // и т. п.
 ```
