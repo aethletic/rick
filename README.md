@@ -12,7 +12,7 @@ Ready-for-use шаблон для быстрого старта [aethletic/rick-
 $ composer require aethletic/rick
 ```
 
-### Инициализация
+## Инициализация
 ```php
 use Aethletic\Telegram\Bot;
 
@@ -39,7 +39,7 @@ $rick = new Bot('1234:token', [
 ]);
 ```
 
-### Простой пример бота
+## Простой пример бота
 ```php
 use Aethletic\Telegram\Bot;
 
@@ -53,7 +53,7 @@ $rick->run();
 ```
 
 
-### say($message, $keyboard)
+## say($message, $keyboard)
 
 Метод отправки сообщения в чат из которого пришло сообщение. 
 
@@ -106,7 +106,7 @@ $rick->say("Привет мир!", $rick->keyboard('цифры'));
 $rick->say("Меня зовут {{Саша|Вася|Петя|Маша}}");
 ```
 
-### edit($message_id, $message, $keyboard)
+## edit($message_id, $message, $keyboard)
 
 Редактирует текст и кнопки **обычного** сообщения, не отправляя нового. 
 
@@ -140,7 +140,7 @@ $message_id = $data['result']['message_id'];
 $rick->edit($message_id, 'Новый текст сообщения');
 ```
 
-### reply($message_id, $message, $keyboard)
+## reply($message_id, $message, $keyboard)
 
 Отвечает на любое сообщение переслав его.
 
@@ -170,7 +170,7 @@ $message_id = $updates['message']['message_id'];
 $rick->reply($message_id, 'Ответ на сообщение');
 ```
 
-### hear($message_text, $callback)
+## hear($message_text, $callback)
 
 Метод листинга сообщений, что-то наподобия роутинга. 
 
@@ -235,7 +235,7 @@ $rick->hear('{default}', function() use ($rick) {
 });
 ```
 
-### callback($callback_data, $callback)
+## callback($callback_data, $callback)
 
 Метод листинга колбэк даты, аналог метода **hear()**.
 
@@ -274,7 +274,7 @@ class Callback
 }
 ```
 
-### action($action)
+## action($action)
 
 Отправляет в чат информацию, например, "печатает", "отправляет фото" и подобное.
 
@@ -304,7 +304,7 @@ $rick->action('typing')->edit($message_id, 'Привет мир');
 $rick->action('typing')->reply($message_id, 'Привет мир');
 ```
 
-### notify($message)
+## notify($message)
 
 Выводит всплывающее уведомление в чат в пользователем.
 
@@ -333,7 +333,7 @@ if ($rick->isCallback()) {
 }
 ```
 
-### isCallback()
+## isCallback()
 
 Проверяет, есть ли в массиве `$updates` ключ колбэк даты.
 
@@ -346,7 +346,7 @@ if ($rick->isCallback()) {
 }
 ```
 
-### getUpdates()
+## getUpdates()
 
 Получить массив с данными о сообщении который прислал телеграм.
 
@@ -387,7 +387,7 @@ print_r($updates);
 // )
 ```
 
-### getUser()
+## getUser()
 
 Получить данные о пользователе и чате из которого пришло сообщение.
 
@@ -428,7 +428,7 @@ $user = $rick->getUser();
 $rick->say("Привет $firstnname, твой юзернейм: $username");
 ```
 
-### keyboard($keyboard)
+## keyboard($keyboard)
 
 Конструктор обычной клавиатуры.
 
@@ -493,7 +493,7 @@ $rick->say("Пример обычной клавиатуры", $rick->keyboard([
 $rick->say("Клавиатура скрыта", $rick->keyboard(false));
 ```
 
-### inline($keyboard)
+## inline($keyboard)
 
 Конструктор инлайн-клавиатуры.
 
@@ -531,7 +531,7 @@ $keyboard = [
 $rick->action('typing')->say("Пример инлайн-клавиатуры", $rick->keybaord($keyboard));
 ```
 
-### execute($method, $params, $is_file)
+## execute($method, $params, $is_file)
 
 Универсальный метод вызова всех методов телеграма.
 
@@ -566,7 +566,7 @@ $rick->execute('sendDocument', $params);
 );
 ```
 
-### File::upload($file)
+## File::upload($file)
 
 Чтобы отправить локальный файл, нужно вспользоваться методом `File::upload('путь до файла')`. 
 
@@ -584,7 +584,7 @@ $rick->sendPhoto($chat_id, File::upload('/storage/dick_pic.jpg'), 'Классн�
 $rick->sendPhoto($chat_id, 'https://example.com/photo.jpg', 'Картинка из интернета');
 ```
 
-### sendPhoto, sendVideo, sendAudio, sendVoice, sendAnimation, sendDocument
+## sendPhoto, sendVideo, sendAudio, sendVoice, sendAnimation, sendDocument
 
 Логика у этих методов одинаковая:
 
@@ -610,7 +610,7 @@ $rick->sendAudio($chat_id, File::upload('/storage/audio.mp3'));
 // и т. п.
 ```
 
-### sendMessage($chat_id, $message, $keyboard)
+## sendMessage($chat_id, $message, $keyboard)
 
 Отправить сообщение пользваотелю/чат/канал.
 
@@ -626,7 +626,7 @@ $rick->sendAudio($chat_id, File::upload('/storage/audio.mp3'));
 $rick->sendMessage($chat_id, 'Привет мир!', $rick->keyboard('цифры'));
 ```
 
-### sendAction$chat_id, $action)
+## sendAction$chat_id, $action)
 
 Отправить действие пользователю/чат.
 
@@ -648,7 +648,7 @@ $rick->sendAction($chat_id, 'typing');
 $rick->sendAction($chat_id, 'typing')->sendMessage($chat_id, 'Привет мир!');
 ```
 
-### randomMessage($message)
+## randomMessage($message)
 
 Выбрать из констуркции ```{{слово 1|слово 2|слово 3|etc...}}``` случайное слово или предложение. Таких конструкций в сообщение может быть неограниченное кол-во.
 
@@ -661,3 +661,5 @@ $message = $rick->randomMessage('Сегодня {{солнечная|пасму�
 
 $rick->sendMessage($chat_id, $message);
 ```
+
+### Сделано с ♥
