@@ -423,7 +423,7 @@ $user = $rick->getUser();
 
 ```php
 // Инициализировать массив в переменные
-[$chat_id,$chat_name,$chat_username,$id,$fullname,$firstname,$lastname,$username,$lang,$message] = $rick->getUser();
+[$chat_id,$chat_name,$chat_username,$id,$fullname,$firstname,$lastname,$username,$lang,$message] = array_values($rick->getUser());
 
 $rick->say("Привет $firstnname, твой юзернейм: $username");
 ```
