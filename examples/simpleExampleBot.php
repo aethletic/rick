@@ -32,9 +32,6 @@ $rick->register('keyboards', [
 ]);
 
 $rick->hear(['/start', '👈 Назад'], function () use ($rick, $user, $message) {
-    if ($message == '👈 Назад')
-        return $rick->say('Хорошо, вернулись в главное меню.', $rick->keyboard('main'));
-
     $rick->action('typing')->say("*Привет!*\n\nНажми на клавиатуру:", $rick->keyboard('main'));
 });
 
