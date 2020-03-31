@@ -425,7 +425,7 @@ $user = $rick->getUser();
 // Инициализировать массив в переменные
 [$chat_id,$chat_name,$chat_username,$id,$fullname,$firstname,$lastname,$username,$lang,$message] = array_values($rick->getUser());
 
-$rick->say("Привет $firstnname, твой юзернейм: $username");
+$rick->say("Привет $firstname, твой юзернейм: $username");
 ```
 
 ## keyboard($keyboard)
