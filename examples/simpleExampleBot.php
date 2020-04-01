@@ -39,8 +39,8 @@ $rick->hear(['🙃', '🥶', '😡'], function () use ($rick, $user) {
     $rick->say('Отправь мне первую кнопку.', $rick->keyboard('unknown'));
 });
 
-$rick->action('typing')->hear('{default}', function () use ($rick, $user) {
-    $rick->say('Oh shit, я не понял тебя 💩');
+$rick->hear('{default}', function () use ($rick, $user) {
+    $rick->action('typing')->say('Oh shit, я не понял тебя 💩');
 });
 
 $rick->hear('🤖', function () use ($rick, $user) {
