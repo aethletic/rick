@@ -651,7 +651,7 @@ $rick->sendAudio($chat_id, File::upload('/storage/audio.mp3'));
 $rick->sendMessage($chat_id, 'Привет мир!', $rick->keyboard('цифры'));
 ```
 
-## sendAction$chat_id, $action)
+## sendAction($chat_id, $action)
 
 Отправить действие пользователю/чат.
 
@@ -687,4 +687,6 @@ $message = $rick->randomMessage('Сегодня {{солнечная|пасму�
 $rick->sendMessage($chat_id, $message);
 ```
 
-### Сделано с ♥
+---
+
+##### Сделано с ❤
