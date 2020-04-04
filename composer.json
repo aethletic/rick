@@ -9,7 +9,7 @@
     }],
     "autoload": {
         "psr-4": {
-            "Aethletic\\": "src/"
+            "Aethletic\\Telegram\\": "src/"
         }
     },
     "require": {
