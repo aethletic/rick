@@ -1,5 +1,9 @@
 # Rick 🧙‍♂️ - Telegram API BOT Framework 
 
+В версии 2.0 немного поменялась логика, и некотоыре методы.
+
+Документацию скоро обновлю... 
+
 Простая, developer friendly, PHP библиотека для работы с Telegram Bot API.
 
 Ready-for-use шаблон для быстрого старта [aethletic/rick-template](https://github.com/aethletic/rick-template "aethletic/rick-template"). 
