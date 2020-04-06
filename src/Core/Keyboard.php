@@ -58,4 +58,9 @@ class Keyboard
 
         return json_encode($markup);
     }
+
+    public function register($keybaords)
+    {
+        $this->keyboards = $keyboards;
+    }
 }
