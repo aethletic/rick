@@ -1,6 +1,6 @@
 {
-    "name": "aethletic/rick",
-    "description": "A simple Telegram Bot Api library.",
+    "name": "aethletic/telegram",
+    "description": "A simple Telegram Bot Api framework.",
     "type": "library",
     "license": "MIT",
     "authors": [{
@@ -8,11 +8,10 @@
         "email": "hello@botify.ru"
     }],
     "autoload": {
-        "psr-4": {
-            "Aethletic\\Telegram\\": "telegram/"
-        }
+        "files": ["src/Bootstrap.php"]
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "aethletic/database": "*"
     }
 }

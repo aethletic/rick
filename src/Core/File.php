@@ -1,6 +1,6 @@
 <?php
 
-namespace Aethletic\Telegram;
+namespace Aethletic\Telegram\Core;
 
 class File
 {
