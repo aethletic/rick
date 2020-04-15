@@ -4,12 +4,12 @@ namespace Aethletic\Telegram\Core;
 
 class Keyboard
 {
-    private $keyboards = [];
+    protected static $keyboards = [];
 
     public function show($keyboard, $resize = true, $one_time = false)
     {
         if (!is_array($keyboard)) {
-            $keyboard = $this->keyboards[$keyboard];
+            $keyboard = self::$keyboards[$keyboard];
         }
 
         $markup = [
@@ -34,7 +34,7 @@ class Keyboard
     public function inline($keyboard)
     {
         if (!is_array($keyboard)) {
-            $keyboard = $this->keyboards[$keyboard];
+            $keyboard = self::$keyboards[$keyboard];
         }
 
         return json_encode(['inline_keyboard' => $keyboard]);
@@ -59,8 +59,8 @@ class Keyboard
         return json_encode($markup);
     }
 
-    public function register($keybaords)
+    public function register($keyboards = [])
     {
-        $this->keyboards = $keyboards;
+        self::$keyboards = $keyboards;
     }
 }

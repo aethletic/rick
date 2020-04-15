@@ -164,13 +164,13 @@ class Bot
         //                 "language_code": "ru"
         //             },
         //             "chat": {
-        //                 "id": -1001262281796,
+        //                 "id": 436432850,
         //                 "title": "sa",
         //                 "username": "alasflasllfsxxzv",
         //                 "type": "supergroup"
         //             },
         //             "date": 1585942712,
-        //             "text": "С„С‹Р°"
+        //             "text": "🎬 Случайный фильм"
         //         }
         //     }', true);
 
@@ -179,7 +179,7 @@ class Bot
 
         if (array_key_exists('callback_query', $this->update)) {
             $this->isCallback = $this->update['callback_query'];
-            $key = 'callback_query';
+            return;
         }
 
         if (array_key_exists('message', $this->update)) {
@@ -330,7 +330,7 @@ class Bot
         $parameters = [
             'chat_id' => $this->user->chat_id,
             'text' => $this->choose($text),
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -345,7 +345,7 @@ class Bot
             'chat_id' => $this->user->chat_id,
             'text' => $this->choose($text),
             'reply_to_message_id' => $this->user->message_id,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -383,12 +383,12 @@ class Bot
         return $this;
     }
 
-    public function editMessage($message_id, $message, $keyboard = false)
+    public function editMessageText($message_id, $text, $keyboard = false)
     {
         $parameters = [
             'chat_id' => $this->user->chat_id,
             'text' => $text,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
             'message_id'   => $message_id,
         ];
 
@@ -398,12 +398,41 @@ class Bot
         return $this->request('editMessageText', $parameters);
     }
 
+    public function editMessageCaption($message_id, $text, $keyboard = false)
+    {
+        $parameters = [
+            'chat_id' => $this->user->chat_id,
+            'caption' => $text,
+            'parse_mode' => $this->config['parse_mode'],
+            'message_id'   => $message_id,
+        ];
+
+        if ($keyboard)
+            $parameters['reply_markup'] = $keyboard;
+
+        return $this->request('editMessageText', $parameters);
+    }
+
+    public function editMessageReplyMarkup($message_id, $keyboard = false)
+    {
+        $parameters = [
+            'chat_id' => $this->user->chat_id,
+            'caption' => $text,
+            'message_id'   => $message_id,
+        ];
+
+        if ($keyboard)
+            $parameters['reply_markup'] = $keyboard;
+
+        return $this->request('editMessageReplyMarkup', $parameters);
+    }
+
     public function sendMessage($chat_id, $text, $keyboard = false)
     {
         $parameters = [
             'chat_id' => $chat_id,
             'text' => $text,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -418,7 +447,7 @@ class Bot
             'chat_id' => $chat_id,
             'text' => $text,
             'reply_to_message_id' => $message_id,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -433,7 +462,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'document' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -448,7 +477,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'photo' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -463,7 +492,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'voice' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -478,7 +507,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'audio' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -493,7 +522,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'video' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -508,7 +537,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'animation' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -523,7 +552,7 @@ class Bot
             'chat_id' => $chat_id,
             'caption' => $text,
             'video_note' => $file,
-            'markdown' => $this->config['parse_mode'],
+            'parse_mode' => $this->config['parse_mode'],
         ];
 
         if ($keyboard)
@@ -532,21 +561,26 @@ class Bot
         return $this->request('sendVideoNote', $parameters, $is_file = true);
     }
 
-    public function notify($text)
+    public function notify($text, $alert = false)
     {
         if (!$this->isCallback)
             return;
 
-        $this->request('answerCallbackQuery', [
+        $parameters = [
             'callback_query_id' => $this->update['callback_query']['id'],
             'text' => $text,
-        ]);
+        ];
+
+        if ($alert)
+            $parameters['show_alert'] = true;
+
+        $this->request('answerCallbackQuery', $parameters);
     }
 
     public function run()
     {
         if ($this->update == '')
-            die('no update, die');
+            die("rick: no update, die\n");
 
         $arr_name = 'events';
 
@@ -558,7 +592,7 @@ class Bot
         }
 
         if (sizeof($this->$arr_name) == 0)
-            die('no have events/callbacks, die');
+            die("rick: no have events/callbacks, die\n");
 
         echo 'ok';
 
