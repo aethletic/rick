@@ -68,6 +68,24 @@ class Bot
     protected $callbacks = [];
 
     /**
+     * Массив с командами
+     * @var array
+     */
+    protected $commands = [];
+
+    /**
+     * Массив с emojis
+     * @var array
+     */
+    protected $emojis = [];
+
+    /**
+     * Массив с репликами
+     * @var array
+     */
+    protected $replics = [];
+
+    /**
      * Логгер
      * @var Logger
      */
@@ -311,6 +329,20 @@ class Bot
         }
     }
 
+    public function command($command, $callback)
+    {
+        if (!is_array($command))
+            $command = [$command];
+
+        foreach ($command as $event) {
+            if (!$this->config['case_sensitive'])
+                $event = mb_strtolower($event);
+
+            $this->commands[$event]['callback'] = $callback;
+            $this->commands[$event]['mode'] = '';
+        }
+    }
+
     public function callback($callback_data = [], $callback)
     {
         if (!is_array($callback_data))
@@ -381,6 +413,16 @@ class Bot
         $this->request('sendChatAction', $parameters);
 
         return $this;
+    }
+
+    public function isActive($chat_id)
+    {
+        $parameters = [
+            'chat_id' => $chat_id,
+            'action' => 'typing',
+        ];
+
+        return $this->request('sendChatAction', $parameters)['ok'];
     }
 
     public function editMessageText($message_id, $text, $keyboard = false)
@@ -577,11 +619,70 @@ class Bot
         $this->request('answerCallbackQuery', $parameters);
     }
 
+    public function getFile($file_id, $local_file_path = false)
+    {
+        $parameters = [
+            'file_id' => $file_id,
+        ];
+
+        if ($local_file_path) {
+            $result = $this->request('getFile', $parameters);
+            if (!$result['ok'])
+                return false;
+            return $this->saveFile($result['result']['file_path'], $local_file_path);
+        }
+
+        return $this->request('getFile', $parameters);
+    }
+
+    public function saveFile($file_path, $local_file_path = false)
+    {
+        if (!$local_file_path)
+            return false;
+
+        $local_file_path = str_ireplace(['{base}', '{basename}', '{base_name}', '{name}'], basename($file_path), $local_file_path);
+
+        return file_put_contents($local_file_path, file_get_contents("https://api.telegram.org/file/bot{$this->token}/{$file_path}"));
+    }
+
     public function run()
     {
         if ($this->update == '')
             die("rick: no update, die\n");
 
+        // command
+        if ($this->isCommand) {
+            $command_name = '{default}';
+            foreach ($this->commands as $command => $value) {
+                if (stripos($this->user->message, $command) !== false) {
+                    $command_name = $command;
+                    break;
+                }
+            }
+            $callback = $this->commands[$command_name]['callback'];
+            if (is_string($callback) === false)
+                return $callback();
+            else
+                return $callback($this);
+        }
+
+        // callback
+        if ($this->isCallback) {
+            $callback_name = '{default}';
+            foreach ($this->callbacks as $cb => $value) {
+                if (stripos($this->update['callback_query']['data'], $cb) !== false) {
+                    $callback_name = $cb;
+                    break;
+                }
+            }
+            $callback = $this->callbacks[$callback_name]['callback'];
+            if (is_string($callback) === false)
+                return $callback();
+            else
+                return $callback($this);
+        }
+
+        // messages
         $arr_name = 'events';
 
         $action = !$this->config['case_sensitive'] ? mb_strtolower($this->user->message) : $this->user->message;
@@ -649,5 +750,42 @@ class Bot
         }
 
         return $message;
+    }
+
+    public function parseCommand($divider = '_')
+    {
+        $arr = explode($divider, $this->user->message);
+        $arr = array_map('trim', $arr);
+        $arr = array_filter($arr);
+        return array_values($arr);
+    }
+
+    public function parseCallback($divider = '_')
+    {
+        $arr = explode($divider, $this->update['callback_query']['data']);
+        $arr = array_map('trim', $arr);
+        $arr = array_filter($arr);
+        return array_values($arr);
+    }
+
+    public function randomEmoji($emoji)
+    {
+        return $this->random($this->emojis[$emoji]);
+    }
+
+    public function randomReplica($replica)
+    {
+        return $this->random($this->replics[$replica]);
+    }
+
+    public function random($arr)
+    {
+        shuffle($arr);
+        return $arr[array_rand($arr)];
+    }
+
+    public function register($var, $data)
+    {
+        $this->$var = $data;
     }
 }
