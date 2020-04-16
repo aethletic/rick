@@ -86,11 +86,14 @@ class User
                     $insert = array_merge($insert, $this->bot->config['db.insert']);
 
                 $this->insert($insert);
+                $this->data = $this->getDataById($this->id);
                 $this->new = true;
             } else {
                 $this->data = $this->getDataById($this->id);
 
                 $this->ban = $this->data['ban'] == 1 ? true : false;
+                $this->state_name  = $this->data['state_name'];
+                $this->state_value = $this->data['state_value'];
 
                 if (array_key_exists('bot.version', $this->bot->config)) {
                     if ($this->bot->config['bot.version'] !== $this->data['bot_version']) {
@@ -127,5 +130,27 @@ class User
     public function getDataById($user_id)
     {
         return $this->bot->db->table('users')->find($user_id, ['*'], 'user_id');
+    }
+
+    public function setState($name = null, $data = null)
+    {
+        $update = [];
+
+        if ($name)
+            $update['state_name'] = $name;
+
+        if ($data)
+            $update['state_data'] = $data;
+
+        return $this->update($this->id, $update);
+    }
+
+    public function clearState()
+    {
+        $update = [];
+        $update['state_name'] = null;
+        $update['state_data'] = null;
+
+        return $this->update($this->id, $update);
     }
 }
