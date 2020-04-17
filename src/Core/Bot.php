@@ -103,6 +103,12 @@ class Bot
      */
     public $db;
 
+    /**
+     * Временный стейт для установки события
+     * @var string
+     */
+    protected $state = null;
+
     public function __construct($token = '', $config = [])
     {
         $this->token = $token;
@@ -315,8 +321,28 @@ class Bot
             $this->isCaption = $this->update[$key]['caption'];
     }
 
+    public function state($state_name)
+    {
+        $this->state = $state_name;
+        return $this;
+    }
+
+    protected function checkState()
+    {
+        if ($this->state !== null && $this->state !== $this->user->state_name) {
+            $this->state = null;
+            return false;
+        }
+
+        $this->state = null;
+        return true;
+    }
+
     public function hear($message, $callback)
     {
+        if (!$this->checkState())
+            return;
+
         if (!is_array($message))
             $message = [$message];
 
@@ -331,6 +357,9 @@ class Bot
 
     public function command($command, $callback)
     {
+        if (!$this->checkState())
+            return;
+
         if (!is_array($command))
             $command = [$command];
 
@@ -345,6 +374,9 @@ class Bot
 
     public function callback($callback_data = [], $callback)
     {
+        if (!$this->checkState())
+            return;
+
         if (!is_array($callback_data))
             $callback_data = [$callback_data];
 
