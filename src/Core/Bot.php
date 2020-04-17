@@ -401,6 +401,12 @@ class Bot
             $callback($version = $this->config['bot.version']);
     }
 
+    public function isBanned($callback)
+    {
+        if ($this->user->ban)
+            $callback($bot->user->data['ban_comment'],$bot->user->data['ban_end']);
+    }
+
     public function say($text, $keyboard = false)
     {
         $parameters = [
@@ -777,7 +783,18 @@ class Bot
 
     public function setWebhook($url = false)
     {
+        if (!$url)
+            $url = $this->config['bot.url'];
+
         return $url ? json_decode(file_get_contents($this->base_url . $this->token . '/setWebhook?url=' . $url), true) : false;
+    }
+
+    public function deleteWebhook($token = false)
+    {
+        if (!$token)
+            $token = $this->token;
+
+        return json_decode(file_get_contents($this->base_url . $token . '/deleteWebhook'), true);
     }
 
     public function choose($message)
