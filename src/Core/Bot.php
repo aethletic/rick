@@ -177,24 +177,24 @@ class Bot
         $this->update = !$post_data ? false : json_decode($post_data, true);
 
         // $this->update = json_decode('{
-        //         "update_id": 31317477,
+        //         "update_id": 123455,
         //         "message": {
-        //             "message_id": 80,
+        //             "message_id": 1337,
         //             "from": {
-        //                 "id": 436432850,
+        //                 "id": 11111,
         //                 "is_bot": false,
-        //                 "first_name": "С‡РёРїСЃС‹ Р»РµР№СЃ",
-        //                 "username": "aethletic",
+        //                 "first_name": "Павел Дуров",
+        //                 "username": "durov",
         //                 "language_code": "ru"
         //             },
         //             "chat": {
-        //                 "id": 436432850,
-        //                 "title": "sa",
-        //                 "username": "alasflasllfsxxzv",
+        //                 "id": 11111,
+        //                 "title": "Чат какой-то",
+        //                 "username": "durov_chat",
         //                 "type": "supergroup"
         //             },
-        //             "date": 1585942712,
-        //             "text": "🎬 Случайный фильм"
+        //             "date": 15223112712,
+        //             "text": "сообщение"
         //         }
         //     }', true);
 
@@ -387,6 +387,18 @@ class Bot
             $this->callbacks[$data]['callback'] = $callback;
             $this->callbacks[$data]['mode'] = '';
         }
+    }
+
+    public function isSpam($callback)
+    {
+        if ($this->user->spam)
+            $callback($time = $this->user->spam);
+    }
+
+    public function isUpdated($callback)
+    {
+        if ($this->user->newVersion)
+            $callback($version = $this->config['bot.version']);
     }
 
     public function say($text, $keyboard = false)
