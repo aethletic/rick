@@ -7,12 +7,14 @@ use Aethletic\Telegram\Core\Logger;
 use Aethletic\Telegram\Core\File;
 use Aethletic\Telegram\Core\Keyboard;
 use Aethletic\Telegram\Core\DB;
+use Aethletic\Telegram\Core\Session;
 
 require_once __DIR__ . '/User.php';
 require_once __DIR__ . '/Logger.php';
 require_once __DIR__ . '/File.php';
 require_once __DIR__ . '/Keyboard.php';
 require_once __DIR__ . '/DB.php';
+require_once __DIR__ . '/Session.php';
 
 class Bot
 {
@@ -111,21 +113,34 @@ class Bot
 
     public function __construct($token = '', $config = [])
     {
+        // set token
         $this->token = $token;
 
+        // set config
         foreach ($config as $key => $value) {
             $this->config[$key] = $value;
         }
 
+        // create db connection
         if ($this->config['db.driver'])
             $this->db = DB::connect($this->config);
 
+        // create session
+        $session_driver = $this->config['sessions.driver'];
+        if ($session_driver) {
+            if (stripos($session_driver, 'memcache') !== false) {
+                $this->session = Session::Memcached($this->config['session.host'], $this->config['session.port']);
+            }
+        }
 
+        // get telegram update
         $this->setUpdate();
 
+        // get user from db
         if ($this->update)
             $this->user = new User($this);
 
+        // logs
         if ($this->config['log.enable']) {
             $this->log = new Logger($this->config['log.dir']);
             if ($this->update)
@@ -176,6 +191,7 @@ class Bot
 
         $this->update = !$post_data ? false : json_decode($post_data, true);
 
+        // for console debbug
         // $this->update = json_decode('{
         //         "update_id": 123455,
         //         "message": {
