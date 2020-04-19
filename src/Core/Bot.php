@@ -420,7 +420,13 @@ class Bot
     public function isBanned($callback)
     {
         if ($this->user->ban)
-            $callback($bot->user->data['ban_comment'],$bot->user->data['ban_end']);
+            $callback($this->user->data['ban_comment'], $this->user->data['ban_end']);
+    }
+
+    public function isNewUser($callback)
+    {
+        if ($this->user->new)
+            $callback();
     }
 
     public function say($text, $keyboard = false)
@@ -829,7 +835,7 @@ class Bot
         return $message;
     }
 
-    public function parseCommand($divider = '_')
+    public function parseCommand($divider = ' ')
     {
         $arr = explode($divider, $this->user->message);
         $arr = array_map('trim', $arr);
@@ -837,9 +843,9 @@ class Bot
         return array_values($arr);
     }
 
-    public function parseCallback($divider = '_')
+    public function parseCallback($divider = ' ')
     {
-        $arr = explode($divider, $this->update['callback_query']['data']);
+        $arr = explode($divider, $this->user->callback_data);
         $arr = array_map('trim', $arr);
         $arr = array_filter($arr);
         return array_values($arr);
