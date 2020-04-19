@@ -79,6 +79,8 @@ class User
                     'ban_end' => null,
                     'state_name' => null,
                     'state_data' => null,
+                    'nickname' => null,
+                    'role' => 'user',
                     'bot_version' => array_key_exists('bot.version', $this->bot->config) ? $this->bot->config['bot.version'] : '',
                 ];
 
@@ -86,18 +88,18 @@ class User
                     $insert = array_merge($insert, $this->bot->config['db.insert']);
 
                 $this->insert($insert);
-                $this->data = $this->getDataById($this->id);
+                $this->data = $this->getById($this->id);
                 $this->new = true;
             } else {
-                $this->data = $this->getDataById($this->id);
+                $this->data = $this->getById($this->id);
 
                 $this->ban = $this->data['ban'] == 1 ? true : false;
                 $this->state_name  = $this->data['state_name'];
-                $this->state_value = $this->data['state_value'];
+                $this->state_data = $this->data['state_data'];
 
                 if (array_key_exists('bot.version', $this->bot->config)) {
                     if ($this->bot->config['bot.version'] !== $this->data['bot_version']) {
-                        $this->update($this->id, ['bot_version' => $this->bot->config['bot.version']]);
+                        $this->updateById($this->id, ['bot_version' => $this->bot->config['bot.version']]);
                         $this->newVersion = true;
                     }
 
@@ -107,7 +109,7 @@ class User
                 if ($diffMessageTime <= $this->bot->config['spam.timeout'])
                     $this->spam = $this->bot->config['spam.timeout'] - $diffMessageTime;
                 else
-                    $this->update($this->id, ['last_message' => time()]);
+                    $this->updateById($this->id, ['last_message' => time()]);
             }
         }
     }
@@ -117,7 +119,12 @@ class User
         $this->bot->db->table('users')->insert($insert);
     }
 
-    public function update($user_id, $update = [])
+    public function update($update = [])
+    {
+        return $this->bot->db->table('users')->where('user_id', '=', $this->id)->update($update);
+    }
+
+    public function updateById($user_id, $update = [])
     {
         return $this->bot->db->table('users')->where('user_id', '=', $user_id)->update($update);
     }
@@ -127,9 +134,48 @@ class User
         return $this->bot->db->table('users')->where('user_id', '=', $user_id)->count() > 0 ? true : false;
     }
 
-    public function getDataById($user_id)
+    public function getById($user_id, $select = ['*'])
     {
-        return $this->bot->db->table('users')->find($user_id, ['*'], 'user_id');
+        return $this->bot->db->table('users')->find($user_id, $select, 'user_id');
+    }
+
+    public function banById($user_id, $comment, $ban_start, $ban_end)
+    {
+        $this->updateById($user_id, [
+            'ban' => 1,
+            'ban_comment' => $comment,
+            'ban_start' => $ban_start,
+            'ban_end' => $ban_end
+        ]);
+    }
+
+    public function ban($comment, $ban_start, $ban_end)
+    {
+        $this->updateById($this->user->id, [
+            'ban' => 1,
+            'ban_comment' => $comment,
+            'ban_start' => $ban_start,
+            'ban_end' => $ban_end
+        ]);
+    }
+    public function unBan()
+    {
+        return $this->update([
+            'ban' => 0,
+            'ban_comment' => null,
+            'ban_start' => null,
+            'ban_end' => null,
+        ]);
+    }
+
+    public function unBanById($user_id)
+    {
+        return $this->updateById($user_id, [
+            'ban' => 0,
+            'ban_comment' => null,
+            'ban_start' => null,
+            'ban_end' => null,
+        ]);
     }
 
     public function setState($name = null, $data = null)
@@ -142,7 +188,7 @@ class User
         if ($data)
             $update['state_data'] = $data;
 
-        return $this->update($this->id, $update);
+        return $this->updateById($this->id, $update);
     }
 
     public function clearState()
@@ -151,6 +197,15 @@ class User
         $update['state_name'] = null;
         $update['state_data'] = null;
 
-        return $this->update($this->id, $update);
+        return $this->updateById($this->id, $update);
+    }
+
+    public function clearStateById($user_id)
+    {
+        $update = [];
+        $update['state_name'] = null;
+        $update['state_data'] = null;
+
+        return $this->updateById($user_id, $update);
     }
 }
