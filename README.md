@@ -1,6 +1,19 @@
 
 # Botify 🧙‍♂️
-Simple & developer-friendly Telegram Bot Api Framework for PHP.
+#### Simple & developer-friendly Telegram Bot Api Framework for PHP.
+
+Skeleton template for this framework can be found here [botify-template](https://github.com/aethletic/botify-template).
+
+Modules for this framework:
+- (rus) [botify-module.start](https://github.com/aethletic/botify-module.start) - notification about new users
+- (rus) [botify-module.admin](https://github.com/aethletic/botify-module.admin) - manage users 
+
+> **NOTE:** Include module file immediately after the bot initialization.
+```php
+include __DIR__ . '/modules/botify.start/module.php';
+include __DIR__ . '/modules/botify.admin/module.php';
+```
+Do not forget to pass the module settings when initializing the bot.
 
 # Documentation
 ## 📜 Table of Contents
