@@ -7,6 +7,7 @@ Simple & developer-friendly Telegram Bot Api Framework for PHP.
  - [Installation](#-installation)
  - [Example: Hello World Bot](#-example-helloworld-bot)
  - [Create Bot](#-create-bot)
+ - [Available Variables](#-available-variables)
  - [Methods](#-methods)
  - [Keyboard](#-keyboard)
  - [Events](#-events)
@@ -130,6 +131,68 @@ $config = [
 ];
 
 $bot = new Bot('1234567890:ABC_TOKEN', $config);
+```
+
+# 💡 Available Variables
+```php
+$bot->update;
+$bot->message_id;
+$bot->callback_id;
+$bot->inline_id;
+$bot->chat_id;
+$bot->chat_name;
+$bot->chat_username;
+$bot->full_name;
+$bot->first_name;
+$bot->last_name;
+$bot->is_bot;
+$bot->username;
+$bot->lang;
+$bot->message;
+$bot->inline_query;
+$bot->inline_offset;
+$bot->callback_data;
+
+$bot->state_name
+$bot->state_data
+
+$bot->isSticker;
+$bot->isVoice;
+$bot->isAnimation;
+$bot->isDocument;
+$bot->isAudio;
+$bot->isPhoto;
+$bot->isPoll;
+$bot->isVideoNote;
+$bot->isContact;
+$bot->isLocation;
+$bot->isVenue;
+$bot->isDice;
+$bot->isNewChatMembers;
+$bot->isLeftChatMember;
+$bot->isNewChatTitle;
+$bot->isNewChatPhoto;
+$bot->isDeleteChatPhoto;
+$bot->isChannelChatCreated;
+$bot->isMigrateToChatId;
+$bot->isMigrateFromChatId;
+$bot->isPinnedMessage;
+$bot->isInvoice;
+$bot->isSucessfulPayment;
+$bot->isConnectedWebsite;
+$bot->isPassportData;
+$bot->isReplyMarkup;
+$bot->isCommand;
+$bot->isInline;
+$bot->isForward;
+$bot->isSuperGroup;
+$bot->isGroup;
+$bot->isChannel;
+$bot->isPrivate;
+$bot->isCaption;
+$bot->isEditedMessage;
+$bot->isCallback;
+$bot->isMessage;
 ```
 
 # 🕹 Methods
