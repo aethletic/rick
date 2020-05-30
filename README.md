@@ -1,7 +1,7 @@
-# Botify
+# Botify 🧙‍♂️
 Simple & developer-friendly Telegram Bot Api Framework for PHP.
 
-## Features
+## ⭐ Features 
  - Easy Localization
  - Cache Data
  - Database (MySQL, SQLite)
@@ -9,12 +9,13 @@ Simple & developer-friendly Telegram Bot Api Framework for PHP.
  - Easy Users Manage
  - All In One Object
  
- ## Installation
+ ## 📦 Installation 
+ 
 ```
 $ composer require aethletic/botify
 ```
 
-## Example: HelloWorld Bot
+## 👀 Example: HelloWorld Bot
 ```php
 use Botify\Core\Bot;
 
@@ -29,7 +30,7 @@ $bot->hear('Hello', function () use ($bot) {
 $bot->run();
 ```
 
-## Create Bot
+## 🐣 Create Bot
 When creating a bot, you can pass the second parameter with the configuration of the bot.
 ```php
 $config = [
@@ -111,7 +112,7 @@ $config = [
 $bot = new Bot('1234567890:ABC_TOKEN', $config);
 ```
 
-# Methods
+# 🕹 Methods
 ## setWebhook
 Set webhook for recive updates from Telegram.
 ```php
@@ -368,7 +369,7 @@ $parameters = [
 $bot->request('sendPhoto', $parameters, $is_file = true);
 ```
 
-# Keyboard
+# ⌨ Keyboard
 The keyboard can be used as a static method `Keyboard::method`, for this you need to specify to use the name `use Botify\Core\Keyboard`.
 Or as an object `$bot->keyboard`.
 ## Keyboard::show
@@ -471,7 +472,7 @@ use Botify\Core\Keyboard;
 $bot->say('Please, share ur location.', Keyboard::location('Share!'));
 ```
 
-# Events
+# 🎈 Events
 
 ## hear
 Catch a text message from a user.
@@ -809,7 +810,7 @@ $bot->isNewUser(function () use ($bot) {
 });
 ```
 
-# Default Telegram Methods
+# 🛩 Default Telegram Methods
 
 ## sendAction
 > **Available $action:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
@@ -891,8 +892,15 @@ Save file on server.
 $bot->saveFile($file_path_url, $local_file_path = false);
 $bot->saveFile($file_path_url, '/storage/files/{basename}');
 ```
+# 📝 File
+If you want to send a local file (photo, document, audio, etc.) use `File::upload`.
+```php 
+use Botify\Core\File;
+$bot->sendPhoto($chat_id, File::upload('/storage/photos/gf_nudes.jpg'));
+$bot->sendDocument($chat_id, File::upload('/storage/file/secretly.pdf'));
+```
 
-# User States
+# 📌 States
 **States** - with the help of states you can store data about the current user action.
 For example, it is useful if the user passes the survey and you expect him to answer a specific question.
 And many other use cases.
@@ -980,7 +988,7 @@ You can get state data.
 $state_data = $bot->state_data;
 ```
 
-# Database
+# 🗃 Database
 For work with database [used this library](https://github.com/mrjgreen/database).
 ## Connect SQLite
 ```php
@@ -1016,7 +1024,7 @@ $bot->db->table('users')->where('user_id', '=', $user_id)->get();
 More methods and examples for work with database see [here](https://github.com/mrjgreen/database).
 
 
-# Cache
+# 🔖 Cache
 [Memcached](https://www.php.net/manual/en/book.memcached.php) is used for caching.
 
 > **NOTE:** Before work, make sure that you have the installed memcached exstension.
@@ -1037,7 +1045,7 @@ $bot->cache->delete($key);
 ```
 More methods and examples for Memcached see [here](https://www.php.net/manual/en/book.memcached.php).
 
-# Localization
+# 🌎 Localization
 
 ## Usage
 ```php
@@ -1094,7 +1102,7 @@ $bot->say($bot->loc->get('HELLO', [
 ]));
 ```
 
-# Logs
+# ✏ Logs
 You can keep logging.
 If you pass the `log.dir` parameter during bot initialization, the `log` method will be available.
 
@@ -1107,5 +1115,6 @@ $bot->log->add($array, $caption = null);
 $bot->log->add($bot->update);
 $bot->log->add($bot->update['message']['from'], 'message_from');
 ```
+
 
 
