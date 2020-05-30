@@ -1011,6 +1011,41 @@ $state_data = $bot->state_data;
 
 # 🗃 Database
 For work with database [used this library](https://github.com/mrjgreen/database).
+
+Before using the database, create a `users` table.
+```sql
+/* users.sql */
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `first_message` int(11) DEFAULT NULL,
+  `last_message` int(11) DEFAULT NULL,
+  `role` text COLLATE utf8mb4_unicode_ci,
+  `full_name` text COLLATE utf8mb4_unicode_ci,
+  `first_name` text COLLATE utf8mb4_unicode_ci,
+  `last_name` text COLLATE utf8mb4_unicode_ci,
+  `username` text COLLATE utf8mb4_unicode_ci,
+  `nickname` text COLLATE utf8mb4_unicode_ci,
+  `lang` text COLLATE utf8mb4_unicode_ci,
+  `ban` tinyint(4) DEFAULT NULL,
+  `ban_comment` text COLLATE utf8mb4_unicode_ci,
+  `ban_start` int(11) DEFAULT NULL,
+  `ban_end` int(11) DEFAULT NULL,
+  `state_name` text COLLATE utf8mb4_unicode_ci,
+  `state_data` text COLLATE utf8mb4_unicode_ci,
+  `bot_version` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+```
+
 ## Connect SQLite
 ```php
 $config = [
