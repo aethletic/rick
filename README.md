@@ -94,7 +94,7 @@ $config = [
 
     // (OPTIONAL) works ONLY if cache or db enabled!
     // state driver:
-    // > db - using database (fast than cache)
+    // > db - using database (faster than cache)
     // > cache - using cache
     'state.driver'      => 'db',
 
@@ -892,6 +892,220 @@ $bot->saveFile($file_path_url, $local_file_path = false);
 $bot->saveFile($file_path_url, '/storage/files/{basename}');
 ```
 
+# User States
+**States** - with the help of states you can store data about the current user action.
+For example, it is useful if the user passes the survey and you expect him to answer a specific question.
+And many other use cases.
 
+> **NOTE:** States are available ONLY if a database is connected OR cache enabled.
+
+You can choose `state.driver` - `db` or `cache`. 
+Pass it in config when bot initialization.
+
+## Init State driver "db"
+State driver "db" faster than "cache".
+```php 
+$config = [
+    'db.driver' => 'sqlite',
+    'db.path' => '/path/to/db.sqlite',
+    'state.driver' => 'db',
+];
+
+$bot = new Bot('1234567890:ABC_TOKEN', $config);
+```
+
+## Init  State driver "cache"
+```php 
+$config = [
+    'cache.driver' => 'memcached',
+    'cache.host' => 'localhost',
+    'cache.port' => '11211',
+    'state.driver' => 'cache',
+];
+
+$bot = new Bot('1234567890:ABC_TOKEN', $config);
+```
+
+## setState
+If you need to save an array, you need to convert it to a json object (`json_encode`). 
+And upon receipt of `json_decode`.
+
+`$state_data` - optional parameter.
+
+```php
+$bot->setState($state_name, $state_data = null);
+```
+
+## getState
+Returns an array with the `name` and `data` of the state.
+```php
+$state_data = $bot->getState();
+```
+`$state_data` is:
+```bash
+Array (
+	[name] => 'name_of_state',
+	[data] => 'data_of_state'
+)
+```
+
+## clearState
+```php
+$bot->clearState();
+```
+
+## clearStateById
+```php
+$bot->clearStateById($user_id); // Telegram user_id
+```
+
+## state
+Case, you have set the name of the state and are waiting for a message from the user to do something.
+To do this, you can use the `state` method before the methods `hear`, `command` and `callback`.
+```php
+$bot->state('choose_car')->hear(['ferrari'], function () use ($bot) {
+    // do something
+});
+```
+
+## state_name (variable)
+You can get state name.
+```php 
+$state_name = $bot->state_name;
+```
+
+## state_data (variable)
+You can get state data.
+```php 
+$state_data = $bot->state_data;
+```
+
+# Database
+For work with database [used this library](https://github.com/mrjgreen/database).
+## Connect SQLite
+```php
+$config = [
+    'db.driver' => 'sqlite',
+    'db.path' => '/path/to/db.sqlite',
+];
+
+$bot = new Bot('1234567890:ABC_TOKEN', $config);
+```
+
+## Connect MySQL
+```php
+$config = [
+    'db.host' => 'localhost',
+    'db.database' => 'database_name',
+    'db.username' => 'admin',
+    'db.password' => 'p@$$w0rD',
+    'db.charset' => 'utf8_mb4',
+    'db.lazy' => true
+]
+
+$bot = new Bot('1234567890:ABC_TOKEN', $config);
+```
+
+## Usage
+```php
+$bot->db;
+$bot->db->table('users')->get();
+$bot->db->table('users')->count();
+$bot->db->table('users')->where('user_id', '=', $user_id)->get();
+```
+More methods and examples for work with database see [here](https://github.com/mrjgreen/database).
+
+
+# Cache
+[Memcached](https://www.php.net/manual/en/book.memcached.php) is used for caching.
+
+> **NOTE:** Before work, make sure that you have the installed memcached exstension.
+
+## Usage
+```php
+$config = [
+    'cache.driver' => 'memcached',
+    'cache.host' => 'localhost',
+    'cache.port' => '11211',
+];
+
+$bot = new Bot('1234567890:ABC_TOKEN', $config);
+
+$bot->cache->get($key);
+$bot->cache->set($key, $data, $expire);
+$bot->cache->delete($key);
+```
+More methods and examples for Memcached see [here](https://www.php.net/manual/en/book.memcached.php).
+
+# Localization
+
+## Usage
+```php
+$bot->loc->setLang($bot->lang); // $bot->lang is user language from update.
+$bot->loc->setDefaultLang('en'); // default language if user language is empty or there is no template for it.
+
+// add lang templates
+$bot->loc->add(require __DIR__ . '/localization/ru.php'); 
+$bot->loc->add(require __DIR__ . '/localization/en.php');
+```
+
+The structure of the language template.
+The template can be in a json object or a php array.
+```php 
+// file: /localization/en.php
+<?php
+return [
+    'en' => [
+        'START' => 'You launched the bot!',
+        'HELLO' => 'Hi!',
+    ],
+];
+
+$bot->loc->add(require __DIR__ . '/localization/en.php');
+
+// file: index.php
+$bot->say($bot->loc->get('HELLO'));
+```
+
+```php 
+// file: /localization/en.json
+{ 
+    "en": { 
+        "START": "You launched the bot!", 
+        "HELLO": "Hi!" 
+    } 
+}
+```
+To pass a variable:
+```php
+// file: /localization/en.php
+<?php
+return [
+    'en' => [
+        'HELLO' => 'Hello {name}!',
+    ],
+];
+
+$bot->loc->add(require __DIR__ . '/localization/en.php');
+
+// file: index.php
+$bot->say($bot->loc->get('HELLO', [
+    'name' => $bot->first_name,
+]));
+```
+
+# Logs
+You can keep logging.
+If you pass the `log.dir` parameter during bot initialization, the `log` method will be available.
+
+> **NOTE**: Automatically logged every update.
+
+```php
+$bot->log->add($array, $caption = null);
+```
+```php
+$bot->log->add($bot->update);
+$bot->log->add($bot->update['message']['from'], 'message_from');
+```
 
 
