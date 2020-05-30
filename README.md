@@ -153,8 +153,8 @@ $bot->inline_query;
 $bot->inline_offset;
 $bot->callback_data;
 
-$bot->state_name
-$bot->state_data
+$bot->state_name;
+$bot->state_data;
 
 $bot->isSticker;
 $bot->isVoice;
