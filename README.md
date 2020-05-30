@@ -111,6 +111,7 @@ $config = [
 $bot = new Bot('1234567890:ABC_TOKEN', $config);
 ```
 
+# Methods
 ## say()
 Send a simple chat message where the update came from.
 ```php 
@@ -128,8 +129,9 @@ $bot->reply($keyboard);
 ## action()
 Send chat status, for example, "Typing".
 
-> **Available:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
+> **Available $action:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
 ```php
+$bot->action($action);
 $bot->action('typing');
 $bot->action('typing')->say('Hello!');
 $bot->action('typing')->reply('How are you?');
@@ -201,7 +203,7 @@ $bot->callback(['/film_id/i', '/serial_id/i'], function () use ($bot) {
     $bot->say('Show video?');
 });
 ```
-You can also parse the callback_data.
+You can also parse the `callback_data`.
 ```php
 $bot->callback(['/film_id/i', '/serial_id/i'], function () use ($bot) {
 	[$cmd, $id] = $bot->parse('_');
@@ -221,7 +223,7 @@ $bot->callback('send_me_alert', function () use ($bot) {
 ```
 
 ## parse
-You can parse a text message, command message or callback_data with one command.
+You can parse a `text message`, `command message` or `callback_data` with one command.
 ```php 
 $message = '/start botify';
 
@@ -237,4 +239,81 @@ $message = '/filmId_12345';
 
 echo $cmd; // /filmId
 echo $id; // 12345
+```
+
+## notify
+You can send a notification to the chat.
+It works only if the `callback_data` came in the update
+```php 
+$bot->notify($text);
+$bot->notify($text, $is_alert = true); // false - is notification, true - is alert. Default: false
+```
+
+# Default Telegram Methods
+
+## sendAction
+> **Available $action:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
+```php
+$bot->sendAction($chat_id, $action);
+```
+## sendMessage
+```php
+$bot->sendMessage($chat_id, $text, $keyboard = false);
+```
+## sendReply
+```php
+$bot->sendReply($chat_id, $message_id, $text, $keyboard = false);
+```
+## sendDice
+```php
+$bot->sendDice($chat_id, $emoji = '', $keyboard = false);
+```
+## sendDocument
+```php
+$bot->sendDocument($chat_id, $file, $text = '', $keyboard = false)
+```
+## sendPhoto
+```php
+$bot->sendPhoto($chat_id, $file, $text = '', $keyboard = false);
+```
+## sendVoice
+```php
+$bot->sendVoice($chat_id, $file, $text = '', $keyboard = false);
+```
+## sendAudio
+```php
+$bot->sendAudio($chat_id, $file, $text = '', $keyboard = false);
+```
+## sendVideo
+```php
+$bot->sendVideo($chat_id, $file, $text = '', $keyboard = false);
+```
+## sendAnimation
+```php
+$bot->sendAnimation($chat_id, $file, $text = '', $keyboard = false);
+```
+## sendVideoNote
+```php
+$bot->sendVideoNote($chat_id, $file, $text = '', $keyboard = false);
+```
+## deleteMessage
+Works only for bot message. **You cannot delete user message.** 
+```php
+$bot->deleteMessage($chat_id, $message_id);
+```
+## editMessageText
+```php
+$bot->editMessageText($message_id, $text = '', $keyboard = false);
+```
+## editMessageCaption
+```php
+$bot->editMessageCaption($message_id, $text = '', $keyboard = false);
+```
+## editMessageReplyMarkup
+```php
+$bot->editMessageReplyMarkup($message_id, $keyboard = false);
+```
+## answerInlineQuery
+```php
+$bot->answerInlineQuery($results = [], $scopes = []);
 ```
