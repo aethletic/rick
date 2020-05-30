@@ -2,7 +2,7 @@
 # Botify 🧙‍♂️
 Simple & developer-friendly Telegram Bot Api Framework for PHP.
 
- - [Instalation](#-instalation)
+ - [Installation](#-installation)
 
 ## ⭐ Features 
  - Easy Localization
