@@ -338,7 +338,7 @@ $update = $bot->getUpdate();
 Checks if there is an array with the update.
 ```php
 if ($bot->isUpdate()) {
-	// update exists
+    // update exists
 }
 ```
 
@@ -349,9 +349,9 @@ $bot->request($method, $parameters, $is_file = false); // $is_file default: fals
 ```
 ```php
 $parameters = [
-	'chat_id' => $chat_id,
-	'text' => 'Sent via Request method 📩',
-	'parse_mode' => 'html'
+    'chat_id' => $chat_id,
+    'text' => 'Sent via Request method 📩',
+    'parse_mode' => 'html'
 ];
 
 $bot->request('sendMessage', $parameters);
@@ -361,8 +361,8 @@ $bot->request('sendMessage', $parameters);
 use Botify\Core\File;
 
 $parameters = [
-	'chat_id' => $chat_id,
-	'photo' => File::upload('/storage/photo/name.jpg')
+    'chat_id' => $chat_id,
+    'photo' => File::upload('/storage/photo/name.jpg')
 ];
 
 $bot->request('sendPhoto', $parameters, $is_file = true);
@@ -515,7 +515,7 @@ $bot->command(['/\/start/i', '/\/старт/ui', '/back'], function () use ($bot
 You can also parse the message.
 ```php
 $bot->command('/start', function () use ($bot) {
-	[$cmd, $arg] = $bot->parse();
+    [$cmd, $arg] = $bot->parse();
     $bot->say("Well met! Your start arg is: {$arg}.");
 });
 ```
@@ -542,7 +542,7 @@ $bot->callback(['/film_id/i', '/serial_id/i'], function () use ($bot) {
 You can also parse the `callback_data`.
 ```php
 $bot->callback(['/film_id/i', '/serial_id/i'], function () use ($bot) {
-	[$cmd, $id] = $bot->parse('_');
+    [$cmd, $id] = $bot->parse('_');
     $bot->say("Showing video: {$id}.");
 });
 ```
@@ -602,9 +602,9 @@ $bot->isMessage;
 Example:
 ```php 
 if ($bot->isDice) {
-	$emoji = $bot->isDice['emoji'];
-	$value = $bot->isDice['value'];
-	$bot->say("Emoji: {$emoji}, value: {$value}.");
+    $emoji = $bot->isDice['emoji'];
+    $value = $bot->isDice['value'];
+    $bot->say("Emoji: {$emoji}, value: {$value}.");
 }
 ```
 
@@ -612,7 +612,7 @@ if ($bot->isDice) {
 Alternative for `$bot->isMessage`.
 ```php
 $bot->onMessage(function () use ($bot) {
-	// code...
+    // code...  
 });
 ```
 
@@ -620,140 +620,140 @@ $bot->onMessage(function () use ($bot) {
 Alternative for `$bot->isCommand`.
 ```php
 $bot->onCommand(function ($command) use ($bot) {
-	// code...
+    // code...
 });
 ```
 ## onCallback
 Alternative for `$bot->isCallback`.
 ```php
 $bot->onCallback(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onEditedMessage
 Alternative for `$bot->isEditedMessage`.
 ```php
 $bot->onEditedMessage(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onSticker
 Alternative for `$bot->isSticker`.
 ```php
 $bot->onSticker(function ($sticker) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onVoice
 Alternative for `$bot->isVoice`.
 ```php
 $bot->onVoice(function ($voice) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onDocument
 Alternative for `$bot->isDocument`.
 ```php
 $bot->onDocument(function ($document) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onAnimation
 Alternative for `$bot->isAnimation`.
 ```php
 $bot->onAnimation(function ($animation) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onPhoto
 Alternative for `$bot->isPhoto`.
 ```php
 $bot->onPhoto(function ($photo) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onAudio
 Alternative for `$bot->isAudio`.
 ```php
 $bot->onAudio(function ($audio) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onVideoNote
 Alternative for `$bot->isVideoNote`.
 ```php
 $bot->onVideoNote(function ($video_note) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onVideo
 Alternative for `$bot->isVideo`.
 ```php
 $bot->onVideo(function ($video) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onContact
 Alternative for `$bot->isContact`.
 ```php
 $bot->onContact(function ($contact) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onLocation
 Alternative for `$bot->isLocation`.
 ```php
 $bot->onLocation(function ($location) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onPoll
 Alternative for `$bot->isPoll`.
 ```php
 $bot->onPoll(function ($poll) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onDice
 Alternative for `$bot->isDice`.
 ```php
 $bot->onDice(function ($emoji, $value) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## onInline
 Alternative for `$bot->isInline`.
 ```php
 $bot->onInline(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## fromPrivate
 Alternative for `$bot->isPrivate`.
 ```php
 $bot->fromPrivate(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## fromChannel
 Alternative for `$bot->isChannel`.
 ```php
 $bot->fromChannel(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## fromGroup
 Alternative for `$bot->isGroup`.
 ```php
 $bot->fromGroup(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## fromSuperGroup
 Alternative for `$bot->isSuperGroup`.
 ```php
 $bot->fromSuperGroup(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## isSpam
@@ -763,7 +763,7 @@ $bot->fromSuperGroup(function () use ($bot) {
 Alternative for `$bot->user->isSpam`.
 ```php
 $bot->isSpam(function ($spam) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## isNewVersion
@@ -773,7 +773,7 @@ $bot->isSpam(function ($spam) use ($bot) {
 Alternative for `$bot->user->isNewVersion`.
 ```php
 $bot->isNewVersion(function ($version) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## isBanned
@@ -783,7 +783,7 @@ $bot->isNewVersion(function ($version) use ($bot) {
 Alternative for `$bot->user->isBanned`.
 ```php
 $bot->isBanned(function ($comment, $expire_end) use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## isAdmin
@@ -793,7 +793,7 @@ $bot->isBanned(function ($comment, $expire_end) use ($bot) {
 Alternative for `$bot->user->isAdmin`.
 ```php
 $bot->isAdmin(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 ## isNewUser
@@ -805,7 +805,7 @@ Alternative for `$bot->user->isNewUser`.
 If the user has been added to the database. And he had not been there before.
 ```php
 $bot->isNewUser(function () use ($bot) {
-	// code...
+    // code... 
 });
 ```
 
@@ -944,8 +944,8 @@ $state_data = $bot->getState();
 `$state_data` is:
 ```bash
 Array (
-	[name] => 'name_of_state',
-	[data] => 'data_of_state'
+    [name] => 'name_of_state',
+    [data] => 'data_of_state'
 )
 ```
 
