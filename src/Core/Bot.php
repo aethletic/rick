@@ -189,8 +189,9 @@ class Bot
         }
     }
 
-    public function setIsVars()
+    private function setIsVars()
     {
+        $this->isInline = false;
         $this->isSticker = false;
         $this->isVoice = false;
         $this->isAnimation = false;
