@@ -1,6 +1,6 @@
 <?php
 
-namespace Aethletic\Telegram\Core;
+namespace Botify\Core;
 
 class File
 {

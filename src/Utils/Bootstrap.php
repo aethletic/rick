@@ -1,6 +1,6 @@
 <?php
 
-namespace Aethletic\Telegram\Utils;
+namespace Botify\Utils;
 
 class Bootstrap
 {

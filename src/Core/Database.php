@@ -1,8 +1,8 @@
 <?php
 
-namespace Aethletic\Telegram\Core;
+namespace Botify\Core;
 
-class DB
+class Database
 {
     public function connect($config)
     {
@@ -12,7 +12,7 @@ class DB
         if ($driver == 'sqlite') {
             return $factory->make([
                 'driver'    => 'sqlite',
-                'database' => $config['db.path'],
+                'database'  => $config['db.path'],
             ]);
         }
 
@@ -20,10 +20,12 @@ class DB
             return $factory->make([
                 'driver'    => 'mysql',
                 'host'      => $config['db.host'],
+                'database'  => $config['db.database'],
                 'username'  => $config['db.username'],
                 'password'  => $config['db.password'],
                 'charset'   => $config['db.charset'] ?? 'utf8',
-                'collation' => 'utf8_unicode_ci',
+                'collation' => 'utf8mb4_unicode_ci',
+                'lazy'      => $config['db.lazy'] ?? true,
             ]);
         }
     }

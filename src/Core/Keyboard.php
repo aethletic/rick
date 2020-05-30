@@ -1,6 +1,6 @@
 <?php
 
-namespace Aethletic\Telegram\Core;
+namespace Botify\Core;
 
 class Keyboard
 {
@@ -40,13 +40,13 @@ class Keyboard
         return json_encode(['inline_keyboard' => $keyboard]);
     }
 
-    // request_contact, request_location
-    public function request($type = 'contact', $text = null, $resize = true, $one_time = false)
+
+    public function contact($text = 'Поделиться номером', $resize = true, $one_time = false)
     {
         $keyboard = [
             [
                 'text' => $text,
-                'request_' . trim($type) => true,
+                'request_contact' => true,
             ]
         ];
 
@@ -59,7 +59,25 @@ class Keyboard
         return json_encode($markup);
     }
 
-    public function register($keyboards = [])
+    public function location($text = 'Поделиться геопозицией', $resize = true, $one_time = false)
+    {
+        $keyboard = [
+            [
+                'text' => $text,
+                'request_location' => true,
+            ]
+        ];
+
+        $markup = [
+            'keyboard' => [$keyboard],
+            'resize_keyboard' => $resize,
+            'one_time_keyboard' => $one_time,
+        ];
+
+        return json_encode($markup);
+    }
+
+    public function add($keyboards = [])
     {
         self::$keyboards = $keyboards;
     }

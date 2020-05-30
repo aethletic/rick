@@ -1,10 +1,10 @@
 <?php
 
-namespace Aethletic\Telegram\Core;
+namespace Botify\Core;
 
-class Session
+class Cache
 {
-    public static function Memcached($host, $port)
+    public static function getMemcachedInstance($host, $port)
     {
         $mem = new \Memcached();
         $mem->addServer($host, $port);

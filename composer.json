@@ -1,6 +1,6 @@
 {
-    "name": "aethletic/rick",
-    "description": "A simple Telegram Bot Api framework.",
+    "name": "aethletic/botify",
+    "description": "A simple Telegram Bot Api Framework for PHP.",
     "type": "library",
     "license": "MIT",
     "authors": [{

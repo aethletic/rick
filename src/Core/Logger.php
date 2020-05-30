@@ -1,6 +1,6 @@
 <?php
 
-namespace Aethletic\Telegram\Core;
+namespace Botify\Core;
 
 class Logger
 {
@@ -11,7 +11,7 @@ class Logger
         $this->dir = $dir;
     }
 
-    public function set($data = false, $type = 'info')
+    public function add($data = false, $type = 'info')
     {
         if (!$data)
             return;
