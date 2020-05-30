@@ -204,6 +204,73 @@ $bot->notify($text);
 $bot->notify($text, $is_alert = true); // false - is notification, true - is alert. Default: false
 ```
 
+## random
+A random element from an array.
+```php 
+$bot->random($array);
+```
+```php
+$names = ['Ivan', 'Maria', 'John', 'Anna', 'Robert'];
+$bot->say('Random name: ' . $bot->random($names));
+```
+
+## randomReplica
+You can store all replica options in one associative array, and then use them in different places.
+```php 
+$bot->randomReplica($key);
+```
+```php
+$replics = [
+    'start' => [
+        'Random Replica #1',
+        'Random Replica #2',
+        'Random Replica #3',
+    ],
+    'denied' => [
+        'Access denied.',
+        'You dont have access for this.',
+        'Sorry, not today.',
+    ],
+];
+
+// add replics to bot
+$bot->register('replics', $replics);
+
+$bot->say($bot->randomReplica('denied')); // Sorry, not today.
+```
+
+## randomEmoji
+You can store all emoji options in one associative array, and then use them in different places.
+```php 
+$bot->randomEmoji($key);
+```
+```php
+$emojis = [
+    'happy' => ['😋', '🥳', '😊'],
+    'sad' => [ '😭', '😢', '☹']
+];
+
+// add emojis to bot
+$bot->register('emojis', $emojis);
+
+$bot->say($bot->randomEmoji('happy')); // 🥳
+```
+
+## shuffle
+You can diversify messages of the same type by sending different variants of words or phrases.
+To do this, put a word or phrase in the view structure `{{word1|word2|etc}}`.
+
+> **NOTE:** Methods `say()` and `reply()` support this method by default. 
+> You don’t have to use shuffle for them.
+
+```php 
+$bot->shuffle($text);
+```
+```php 
+$bot->shuffle('It was {{cool|nice|ok}}!'); // It was nice!
+$bot->shuffle('Hello! My name is {{Ivan|Maria}}. I am {{21|25|45}} yo.'); // Hello! My name is Ivan. I am 21 yo.
+```
+
 ## isActive
 Check if the user has blocked the bot or not. 
 For example, it is useful to use active users to collect statistics.
@@ -213,6 +280,21 @@ $bot->isActive($chat_id);
 You can also pass the parameter `$action`.
 ```php
 $bot->isActive($chat_id, $action = 'typing'); // default: 'typing'
+```
+
+## time
+Get the execution time of the script in seconds.
+```php 
+// $n - how many characters will be after the dot.
+$bot->time($n = 2); // $n default: 2
+```
+```php
+$time = $bot->time();
+$bot->say("Execution time: {$time} sec."); // Execution time: 1.32 sec.
+```
+```php
+$time = $bot->time(5);
+$bot->say("Execution time: {$time} sec."); // Execution time: 1.32172 sec.
 ```
 
 ## sendJson
@@ -246,6 +328,20 @@ Sample received message:
 }
 ```
 
+## getUpdate
+Get array of update from `php://input`.
+```php
+$update = $bot->getUpdate();
+```
+
+## isUpdate
+Checks if there is an array with the update.
+```php
+if ($bot->isUpdate()) {
+	// update exists
+}
+```
+
 ## request
 A universal way to call any Telegram method.
 ```php
@@ -270,6 +366,109 @@ $parameters = [
 ];
 
 $bot->request('sendPhoto', $parameters, $is_file = true);
+```
+
+# Keyboard
+The keyboard can be used as a static method `Keyboard::method`, for this you need to specify to use the name `use Botify\Core\Keyboard`.
+Or as an object `$bot->keyboard`.
+## Keyboard::show
+```php
+Keyboard::show($keyboard, $resize = true, $one_time = false);
+```
+
+```php 
+use Botify\Core\Keyboard;
+
+$keyboard = [
+    ['👍', '👎']
+];
+
+$bot->say('Standart Keyboard', Keyboard::show($keyboard));
+$bot->say('Standart Keyboard', $bot->keyboard->show($keyboard));
+```
+
+## Keyboard::inline
+```php
+Keyboard::inline($inline);
+```
+
+```php
+use Botify\Core\Keyboard;
+
+$keyboard = [
+    [
+        ['text' => '👍', 'callback_data' => 'thumb_up'],
+        ['text' => '👎', 'callback_data' => 'thumb_down'],
+    ],
+    [
+        ['text' => 'Botify 🔥', 'url' => 'https://botify.ru/'],
+    ]
+]
+
+$bot->say('Inline Keyboard', Keyboard::inline([
+    ['👍', '👎']
+]));
+
+$bot->say('Inline Keyboard', $bot->keyboard->inline([
+    ['👍', '👎']
+]));
+```
+
+## Keyboard::hide
+```php
+use Botify\Core\Keyboard;
+$bot->say('The keyboard is hidden.', Keyboard::hide())
+$bot->say('The keyboard is hidden.', $bot->keyboard->hide())
+```
+
+## Keyboard::add
+You can add an associative array with keyboards and then use them many times anywhere.
+```php
+use Botify\Core\Keyboard;
+
+$keyboards = [
+    // you can store standart keyboards
+    'numbers' => [
+        ['7', '8', '9'],
+        ['4', '5', '6'],
+        ['1', '2', '3'],
+             ['0']
+    ],
+
+    // and can store inline keyboards
+    'thumbs' => [
+        [
+            ['text' => '👍', 'callback_data' => 'thumb_up'],
+            ['text' => '👎', 'callback_data' => 'thumb_down'],
+        ],
+        [
+            ['text' => 'Botify 🔥', 'url' => 'https://botify.ru/'],
+        ]
+    ],
+];
+
+Keyboard::add($keyboard);
+
+$bot->say('Press thumb up!', Keyboard::inline('thumbs'));
+$bot->say('Calculate?', $bot->keyboard->show('numbers'));
+```
+
+## Keyboard::contact
+```php
+Keyboard::contact($text = 'Share contact telephone number.', $resize = true, $one_time = false);
+```
+```php 
+use Botify\Core\Keyboard;
+$bot->say('Please, share ur telephone number.', Keyboard::contact('Share!'));
+```
+
+## Keyboard::location
+```php
+Keyboard::location($text = 'Share location.', $resize = true, $one_time = false);
+```
+```php 
+use Botify\Core\Keyboard;
+$bot->say('Please, share ur location.', Keyboard::location('Share!'));
 ```
 
 # Events
@@ -554,6 +753,58 @@ $bot->fromGroup(function () use ($bot) {
 Alternative for `$bot->isSuperGroup`.
 ```php
 $bot->fromSuperGroup(function () use ($bot) {
+	// code...
+});
+```
+## isSpam
+
+> **NOTE:** These events are available ONLY if a database is connected.
+
+Alternative for `$bot->user->isSpam`.
+```php
+$bot->isSpam(function ($spam) use ($bot) {
+	// code...
+});
+```
+## isNewVersion
+
+> **NOTE:** These events are available ONLY if a database is connected.
+
+Alternative for `$bot->user->isNewVersion`.
+```php
+$bot->isNewVersion(function ($version) use ($bot) {
+	// code...
+});
+```
+## isBanned
+
+> **NOTE:** These events are available ONLY if a database is connected.
+
+Alternative for `$bot->user->isBanned`.
+```php
+$bot->isBanned(function ($comment, $expire_end) use ($bot) {
+	// code...
+});
+```
+## isAdmin
+
+> **NOTE:** These events are available ONLY if a database is connected.
+
+Alternative for `$bot->user->isAdmin`.
+```php
+$bot->isAdmin(function () use ($bot) {
+	// code...
+});
+```
+## isNewUser
+
+> **NOTE:** These events are available ONLY if a database is connected.
+
+Alternative for `$bot->user->isNewUser`.
+
+If the user has been added to the database. And he had not been there before.
+```php
+$bot->isNewUser(function () use ($bot) {
 	// code...
 });
 ```
