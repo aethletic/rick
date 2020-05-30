@@ -2,7 +2,21 @@
 # Botify 🧙‍♂️
 Simple & developer-friendly Telegram Bot Api Framework for PHP.
 
+# Documentation
+## 📜 Table of Contents
  - [Installation](#-installation)
+ - [Example: Hello World Bot](#-example-helloworld-bot)
+ - [Create Bot](#-create-bot)
+ - [Methods](#-methods)
+ - [Keyboard](#-keyboard)
+ - [Events](#-events)
+ - [Default Telegram Methods](#-default-telegram-methods)
+ - [File Upload](#-file)
+ - [States](#-states)
+ - [Database](#-database)
+ - [Cache](#-cache)
+ - [Localization](#-localization)
+ - [Logs](#-logs)
 
 ## ⭐ Features 
  - Easy Localization
@@ -351,6 +365,7 @@ if ($bot->isUpdate()) {
 
 ## request
 A universal way to call any Telegram method.
+All Telegram methods can be found [here](https://core.telegram.org/bots/api#available-methods).
 ```php
 $bot->request($method, $parameters, $is_file = false); // $is_file default: false
 ```
@@ -817,7 +832,7 @@ $bot->isNewUser(function () use ($bot) {
 ```
 
 # 🛩 Default Telegram Methods
-
+All Telegram methods can be found [here](https://core.telegram.org/bots/api#available-methods).
 ## sendAction
 > **Available $action:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
 ```php
