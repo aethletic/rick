@@ -1,10 +1,13 @@
+
 # Botify 🧙‍♂️
 Simple & developer-friendly Telegram Bot Api Framework for PHP.
 
+ - [Instalation](#-instalation)
+
 ## ⭐ Features 
  - Easy Localization
- - Cache Data
  - Database (MySQL, SQLite)
+ - Cache
  - Modules (Extensions)
  - Easy Users Manage
  - All In One Object
@@ -32,6 +35,9 @@ $bot->run();
 
 ## 🐣 Create Bot
 When creating a bot, you can pass the second parameter with the configuration of the bot.
+
+It is not necessary to specify all parameters. 
+You can specify only those that you will use or you can omit the parameters at all.
 ```php
 $config = [
     // (OPTIONAL) after changing the bot version, the first message
@@ -102,8 +108,8 @@ $config = [
     // (OPTIONAL) store logs file
     'log.dir'           => __DIR__ . '/../storage/logs',
 
-    // config for modules
-    'modula.name'      => [
+    // (OPTIONAL) if you have modules, set config here for they
+    'module.name'      => [
         'param1' => 'value1',
         'param2' => 'value2',
     ]
