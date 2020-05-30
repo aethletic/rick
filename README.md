@@ -112,6 +112,31 @@ $bot = new Bot('1234567890:ABC_TOKEN', $config);
 ```
 
 # Methods
+## setWebhook
+Set webhook for recive updates from Telegram.
+```php
+$bot->setWebhook($url = false);
+```
+```php 
+$bot->setWebhook('https://bot.example.com/botify/index.php');
+```
+If you passed the `bot.url` parameter in the configuration, then it is not necessary to pass `$url` parameter.
+```php
+$bot->setWebhook();
+```
+
+## deleteWebhook
+```php
+$bot->deleteWebhook($token = false);
+```
+```php
+$bot->deleteWebhook('1234567890:ABC_TOKEN');
+```
+If you passed the `bot.token` parameter in the configuration, then it is not necessary to pass `$token` parameter.
+```php
+$bot->deleteWebhook();
+```
+
 ## say()
 Send a simple chat message where the update came from.
 ```php 
@@ -136,6 +161,118 @@ $bot->action('typing');
 $bot->action('typing')->say('Hello!');
 $bot->action('typing')->reply('How are you?');
 ```
+
+## parse
+You can parse a `text message`, `command message` or `callback_data` with one command.
+```php 
+$message = '/start botify';
+
+[$cmd, $arg] = $bot->parse(); // default delimiter is space ' '.
+
+echo $cmd; // /start
+echo $arg; // botify
+```
+```php 
+$message = '/filmId_12345';
+
+[$cmd, $id] = $bot->parse('_'); // now delimiter is '_'.
+
+echo $cmd; // /filmId
+echo $id; // 12345
+```
+```php 
+$message = '/serial_12345_3';
+
+[$cmd, $serial_id, $serial_season] = $bot->parse('_'); // now delimiter is '_'.
+
+echo $cmd; // /serial
+echo $serial_id; // 12345
+echo $serial_season; // 3
+```
+
+## dice
+Send a dice to chat.
+```php 
+$bot->dice($emoji = '', $keyboard = false);
+```
+
+## notify
+You can send a notification to the chat.
+It works only if the `callback_data` came in the update
+```php 
+$bot->notify($text);
+$bot->notify($text, $is_alert = true); // false - is notification, true - is alert. Default: false
+```
+
+## isActive
+Check if the user has blocked the bot or not. 
+For example, it is useful to use active users to collect statistics.
+```php
+$bot->isActive($chat_id);
+```
+You can also pass the parameter `$action`.
+```php
+$bot->isActive($chat_id, $action = 'typing'); // default: 'typing'
+```
+
+## sendJson
+For debugging you can use this method.
+Sends json data to chat.
+```php 
+$bot->sendJson();
+```
+Sample received message:
+```json
+{
+    "update_id": 31332905,
+    "message": {
+        "message_id": 29437,
+        "from": {
+            "id": 436432850,
+            "is_bot": false,
+            "first_name": "чипсы лейс",
+            "username": "aethletic",
+            "language_code": "ru"
+        },
+        "chat": {
+            "id": 436432850,
+            "first_name": "чипсы лейс",
+            "username": "aethletic",
+            "type": "private"
+        },
+        "date": 1590836349,
+        "text": "Botify 👍"
+    }
+}
+```
+
+## request
+A universal way to call any Telegram method.
+```php
+$bot->request($method, $parameters, $is_file = false); // $is_file default: false
+```
+```php
+$parameters = [
+	'chat_id' => $chat_id,
+	'text' => 'Sent via Request method 📩',
+	'parse_mode' => 'html'
+];
+
+$bot->request('sendMessage', $parameters);
+```
+
+```php
+use Botify\Core\File;
+
+$parameters = [
+	'chat_id' => $chat_id,
+	'photo' => File::upload('/storage/photo/name.jpg')
+];
+
+$bot->request('sendPhoto', $parameters, $is_file = true);
+```
+
+# Events
 
 ## hear
 Catch a text message from a user.
@@ -221,32 +358,204 @@ $bot->callback('send_me_alert', function () use ($bot) {
     $bot->notify('This is Alert. Please, press OK.', true);
 });
 ```
-
-## parse
-You can parse a `text message`, `command message` or `callback_data` with one command.
-```php 
-$message = '/start botify';
-
-[$cmd, $arg] = $bot->parse(); // default delimiter is space ' '.
-
-echo $cmd; // /start
-echo $arg; // botify
+## Event Type Check
+All variables have data corresponding data in themselves. 
+If there is no data, then the variable will be `false`.
+```php
+$bot->isSticker;
+$bot->isVoice;
+$bot->isAnimation;
+$bot->isDocument;
+$bot->isAudio;
+$bot->isPhoto;
+$bot->isPoll;
+$bot->isVideoNote;
+$bot->isContact;
+$bot->isLocation;
+$bot->isVenue;
+$bot->isDice;
+$bot->isNewChatMembers;
+$bot->isLeftChatMember;
+$bot->isNewChatTitle;
+$bot->isNewChatPhoto;
+$bot->isDeleteChatPhoto;
+$bot->isChannelChatCreated;
+$bot->isMigrateToChatId;
+$bot->isMigrateFromChatId;
+$bot->isPinnedMessage;
+$bot->isInvoice;
+$bot->isSucessfulPayment;
+$bot->isConnectedWebsite;
+$bot->isPassportData;
+$bot->isReplyMarkup;
+$bot->isCommand;
+$bot->isInline;
+$bot->isForward;
+$bot->isSuperGroup;
+$bot->isGroup;
+$bot->isChannel;
+$bot->isPrivate;
+$bot->isCaption;
+$bot->isEditedMessage;
+$bot->isCallback;
+$bot->isMessage;
 ```
+Example:
 ```php 
-$message = '/filmId_12345';
-
-[$cmd, $id] = $bot->parse('_'); // now delimiter is '_'.
-
-echo $cmd; // /filmId
-echo $id; // 12345
+if ($bot->isDice) {
+	$emoji = $bot->isDice['emoji'];
+	$value = $bot->isDice['value'];
+	$bot->say("Emoji: {$emoji}, value: {$value}.");
+}
 ```
 
-## notify
-You can send a notification to the chat.
-It works only if the `callback_data` came in the update
-```php 
-$bot->notify($text);
-$bot->notify($text, $is_alert = true); // false - is notification, true - is alert. Default: false
+## onMessage
+Alternative for `$bot->isMessage`.
+```php
+$bot->onMessage(function () use ($bot) {
+	// code...
+});
+```
+
+## onCommand
+Alternative for `$bot->isCommand`.
+```php
+$bot->onCommand(function ($command) use ($bot) {
+	// code...
+});
+```
+## onCallback
+Alternative for `$bot->isCallback`.
+```php
+$bot->onCallback(function () use ($bot) {
+	// code...
+});
+```
+## onEditedMessage
+Alternative for `$bot->isEditedMessage`.
+```php
+$bot->onEditedMessage(function () use ($bot) {
+	// code...
+});
+```
+## onSticker
+Alternative for `$bot->isSticker`.
+```php
+$bot->onSticker(function ($sticker) use ($bot) {
+	// code...
+});
+```
+## onVoice
+Alternative for `$bot->isVoice`.
+```php
+$bot->onVoice(function ($voice) use ($bot) {
+	// code...
+});
+```
+## onDocument
+Alternative for `$bot->isDocument`.
+```php
+$bot->onDocument(function ($document) use ($bot) {
+	// code...
+});
+```
+## onAnimation
+Alternative for `$bot->isAnimation`.
+```php
+$bot->onAnimation(function ($animation) use ($bot) {
+	// code...
+});
+```
+## onPhoto
+Alternative for `$bot->isPhoto`.
+```php
+$bot->onPhoto(function ($photo) use ($bot) {
+	// code...
+});
+```
+## onAudio
+Alternative for `$bot->isAudio`.
+```php
+$bot->onAudio(function ($audio) use ($bot) {
+	// code...
+});
+```
+## onVideoNote
+Alternative for `$bot->isVideoNote`.
+```php
+$bot->onVideoNote(function ($video_note) use ($bot) {
+	// code...
+});
+```
+## onVideo
+Alternative for `$bot->isVideo`.
+```php
+$bot->onVideo(function ($video) use ($bot) {
+	// code...
+});
+```
+## onContact
+Alternative for `$bot->isContact`.
+```php
+$bot->onContact(function ($contact) use ($bot) {
+	// code...
+});
+```
+## onLocation
+Alternative for `$bot->isLocation`.
+```php
+$bot->onLocation(function ($location) use ($bot) {
+	// code...
+});
+```
+## onPoll
+Alternative for `$bot->isPoll`.
+```php
+$bot->onPoll(function ($poll) use ($bot) {
+	// code...
+});
+```
+## onDice
+Alternative for `$bot->isDice`.
+```php
+$bot->onDice(function ($emoji, $value) use ($bot) {
+	// code...
+});
+```
+## onInline
+Alternative for `$bot->isInline`.
+```php
+$bot->onInline(function () use ($bot) {
+	// code...
+});
+```
+## fromPrivate
+Alternative for `$bot->isPrivate`.
+```php
+$bot->fromPrivate(function () use ($bot) {
+	// code...
+});
+```
+## fromChannel
+Alternative for `$bot->isChannel`.
+```php
+$bot->fromChannel(function () use ($bot) {
+	// code...
+});
+```
+## fromGroup
+Alternative for `$bot->isGroup`.
+```php
+$bot->fromGroup(function () use ($bot) {
+	// code...
+});
+```
+## fromSuperGroup
+Alternative for `$bot->isSuperGroup`.
+```php
+$bot->fromSuperGroup(function () use ($bot) {
+	// code...
+});
 ```
 
 # Default Telegram Methods
@@ -317,3 +626,21 @@ $bot->editMessageReplyMarkup($message_id, $keyboard = false);
 ```php
 $bot->answerInlineQuery($results = [], $scopes = []);
 ```
+## getFile
+Get data about a file or save it right away.
+```php
+$bot->getFile($file_id, $local_file_path = false);
+$bot->getFile($file_id);
+$bot->getFile($file_id, '/storage/files/{basename}'); // immediately save to server
+```
+## saveFile
+Save file on server.
+```php
+// $file_path_url - this is result by $bot->getFile()['result']['file_path'];
+$bot->saveFile($file_path_url, $local_file_path = false);
+$bot->saveFile($file_path_url, '/storage/files/{basename}');
+```
+
+
+
+
