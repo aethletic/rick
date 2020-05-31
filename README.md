@@ -15,6 +15,14 @@ include __DIR__ . '/modules/botify.admin/module.php';
 ```
 Do not forget to pass the module settings when initializing the bot.
 
+## ⭐ Features 
+ - Easy Localization
+ - Database (MySQL, SQLite)
+ - Cache
+ - Modules (Extensions)
+ - Easy Users Manage
+ - All In One Object
+
 # Documentation
 ## 📜 Table of Contents
  - [Installation](#-installation)
@@ -31,14 +39,6 @@ Do not forget to pass the module settings when initializing the bot.
  - [Cache](#-cache)
  - [Localization](#-localization)
  - [Logs](#-logs)
-
-## ⭐ Features 
- - Easy Localization
- - Database (MySQL, SQLite)
- - Cache
- - Modules (Extensions)
- - Easy Users Manage
- - All In One Object
  
  ## 📦 Installation 
  
