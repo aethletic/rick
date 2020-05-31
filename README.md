@@ -578,6 +578,11 @@ $bot->hear('ping?', function () use ($bot) {
     $bot->say('pong!');
 });
 ```
+```php
+$bot->hear('{default}', function () use ($bot) {
+    $bot->say('Default answer...');
+});
+```
 To catch multiple messages, use an array of messages.
 ```php
 $bot->hear(['Hello', 'Привет', 'Salut'], function () use ($bot) {
@@ -596,6 +601,11 @@ Catch a command message from a user.
 ```php
 $bot->command('/start', function () use ($bot) {
     $bot->say('Well met!');
+});
+```
+```php
+$bot->command('{default}', function () use ($bot) {
+    $bot->say('Default answer...');
 });
 ```
 To catch multiple messages, use an array of messages.
@@ -623,6 +633,11 @@ Catch a callback event from a user.
 ```php
 $bot->callback('some_callback_data', function () use ($bot) {
     $bot->say('Yep!');
+});
+```
+```php
+$bot->callback('{default}', function () use ($bot) {
+    $bot->say('Default answer...');
 });
 ```
 To catch multiple messages, use an array of messages.
