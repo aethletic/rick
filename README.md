@@ -975,14 +975,17 @@ Works only for bot message. **You cannot delete user message.**
 $bot->deleteMessage($chat_id, $message_id);
 ```
 ## editMessageText
+Works only for bot message. **You cannot edit user message.** 
 ```php
 $bot->editMessageText($message_id, $text = '', $keyboard = false);
 ```
 ## editMessageCaption
+Works only for bot message. **You cannot edit user message.** 
 ```php
 $bot->editMessageCaption($message_id, $text = '', $keyboard = false);
 ```
 ## editMessageReplyMarkup
+Works only for bot message. **You cannot edit user message.** 
 ```php
 $bot->editMessageReplyMarkup($message_id, $keyboard = false);
 ```
