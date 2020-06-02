@@ -1166,10 +1166,12 @@ $bot = new Bot('1234567890:ABC_TOKEN', $config);
 
 ## Usage
 ```php
-$bot->db;
-$bot->db->table('users')->get();
-$bot->db->table('users')->count();
-$bot->db->table('users')->where('user_id', '=', $user_id)->get();
+$bot->db; // database object
+$bot->db->table('users')->get(); // get all users
+$bot->db->table('users')->count(); // count of users
+$bot->db->table('users')->where('user_id', $user_id)->get(); // get user by user_id
+$bot->db->table('users')->where('user_id', $user_id)->update(['nickname' => 'Botify']); // update user by user_id
+$bot->db->fetchAll('SELECT * FROM users'); // raw query
 ```
 More methods and examples for work with database see [here](https://github.com/mrjgreen/database).
 
@@ -1189,6 +1191,7 @@ $config = [
 
 $bot = new Bot('1234567890:ABC_TOKEN', $config);
 
+$bot->cache; // cache object
 $bot->cache->get($key);
 $bot->cache->set($key, $data, $expire);
 $bot->cache->delete($key);
