@@ -54,7 +54,7 @@ require '/vendor/autoload.php';
 
 $bot = new Bot('1234567890:ABC_TOKEN');
 
-$bot->hear('Hello', function () use ($bot) {
+$bot->hear('{default}', function () use ($bot) {
     $bot->say('Hello World! 🌎');
 });
 
