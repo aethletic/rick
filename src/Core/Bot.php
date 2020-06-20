@@ -78,6 +78,9 @@ class Bot
             if (stripos($this->config['cache.driver'], 'memcache') !== false) {
                 $this->cache = Cache::getMemcachedInstance($this->config['cache.host'], $this->config['cache.port']);
             }
+            if (stripos($this->config['cache.driver'], 'redis') !== false) {
+                $this->cache = Cache::getRedisInstance($this->config['cache.host'], $this->config['cache.port']);
+            }
         }
 
         if ($this->config['db.driver']) {
@@ -1080,10 +1083,18 @@ class Bot
         $this->state_data = null;
 
         $state_driver = mb_strtolower($this->config['state.driver']);
+        $cache_driver = mb_strtolower($this->config['cache.driver']);
 
         if ($state_driver == 'cache' && $this->cache) { // cache
             $id = $this->user_id . '_state';
-            return $this->cache->delete($id);
+
+            if ($cache_driver == 'redis') {
+                return $this->cache->del($id);
+            }
+
+            if (stripos($cache_driver, 'memcache') !== false) {
+                return $this->cache->delete($id);
+            }
         } else if ($state_driver == 'db' && $this->db) { // db
             $update = [];
             $update['state_name'] = null;
