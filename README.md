@@ -1091,6 +1091,14 @@ $bot->state('choose_car')->hear(['ferrari'], function () use ($bot) {
 });
 ```
 
+Use stop words to exit the state and more.
+```php
+$bot->state('setname', ['Back', 'Назад'])
+    ->hear(['{default}'], function () use ($bot) {
+        $bot->say("Wow! Nice name.");
+    });
+```
+
 ## state_name (variable)
 You can get state name.
 ```php 
