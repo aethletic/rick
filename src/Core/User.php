@@ -21,6 +21,10 @@ class User
         $this->bot = $bot;
         $update = $this->bot->update;
 
+        if (!$update) {
+            return;
+        }
+        
         if (in_array($this->bot->user_id, $this->bot->config['admin.list']) || in_array($this->bot->username, $this->bot->config['admin.list']))
             $this->isAdmin = true;
 
