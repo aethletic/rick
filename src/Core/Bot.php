@@ -34,6 +34,8 @@ class Bot
     public  $loc;
     public  $db;
     public  $user;
+    private $needState;
+    private $stopWords;
     public  $config = [
         'bot.version'       => '0.0.0',
         'bot.url'           => '',
@@ -841,8 +843,11 @@ class Bot
 
     public function hear($messages = null, $callback = null)
     {
-        if (!$this->checkState())
+        if (in_array($this->message, $this->stopWords))
             return;
+
+        if (!$this->checkState())
+                return;
 
         if (!$messages || !$callback)
             return;
@@ -859,6 +864,9 @@ class Bot
 
     public function command($commands = null, $callback = null)
     {
+        if (in_array($this->message, $this->stopWords))
+            return;
+
         if (!$this->checkState())
             return;
 
@@ -1012,9 +1020,10 @@ class Bot
         return $this->request('deleteMessage', $parameters, $is_file = false);
     }
 
-    public function state($state_name)
+    public function state($state_name, $stop_words)
     {
         $this->needState = $state_name;
+        $this->stopWords = !is_array($stop_words) ? [$stop_words] : $stop_words;
         return $this;
     }
 
@@ -1059,8 +1068,8 @@ class Bot
             return $this->cache->get($id);
         } else if ($state_driver == 'db' && $this->db) { // db
             return [
-                'name' => $this->user->state_name,
-                'data' => $this->user->state_data,
+                'name' => $this->user->state_name ?? '',
+                'data' => $this->user->state_data ?? '',
             ];
         }
     }
