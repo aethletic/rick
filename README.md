@@ -1098,6 +1098,7 @@ $bot->state('setname', ['Back', 'Назад'])
         $bot->say("Wow! Nice name.");
     });
 ```
+If the message contains any word from the array, for example, `Back`, then the construction will **not be executed** and the message will not be sent.
 
 ## state_name (variable)
 You can get state name.
