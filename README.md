@@ -1041,9 +1041,9 @@ $bot = new Bot('1234567890:ABC_TOKEN', $config);
 ## Init  State driver "cache"
 ```php 
 $config = [
-    'cache.driver' => 'memcached',
-    'cache.host' => 'localhost',
-    'cache.port' => '11211',
+    'cache.driver' => 'redis', // [memcache], [redis], [false]
+    'cache.host' => '127.0.0.1', // host for redis: 127.0.0.1, memcached: localhost
+    'cache.port' => '6379', // port for redis: 6379, memcached: 11211
     'state.driver' => 'cache',
 ];
 
