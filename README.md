@@ -96,10 +96,11 @@ $config = [
 
     // (OPTIONAL) memcache driver:
     // > false - cache disable
-    // > memcached - for enable memcache cache
-    'cache.driver'      => 'memcached',
-    'cache.host'        => 'localhost',
-    'cache.port'        => '11211',
+    // > memcached - for enable memcached cache
+    // > redis - for enable redis cache
+    'cache.driver'      => 'redis', // [memcache], [redis], [false] - not to use cache
+    'cache.host'        => '127.0.0.1', // host for redis: 127.0.0.1, memcached: localhost
+    'cache.port'        => '6379', // port for redis: 6379, memcached: 11211
 
     // (OPTIONAL) Time in seconds after which the user can write
     // the following message.
