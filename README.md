@@ -4,6 +4,18 @@
 
 Skeleton template for this framework can be found here [botify-template](https://github.com/aethletic/botify-template).
 
+## ⭐ Features 
+ - Easy Localization
+ - Database (MySQL, SQLite)
+ - Cache
+ - Modules (Extensions)
+ - Easy Users Manage
+ - All In One Object
+
+## 🦾 Modules 
+**Modules** are a part of the code or functionality that can be used in different projects. 
+You make a module once and then use it in future projects so as not to waste time re-developing it.
+
 Modules for this framework:
 - (rus) [botify-module.start](https://github.com/aethletic/botify-module.start) - notification about new users
 - (rus) [botify-module.admin](https://github.com/aethletic/botify-module.admin) - manage users 
@@ -14,14 +26,6 @@ include __DIR__ . '/modules/botify.start/module.php';
 include __DIR__ . '/modules/botify.admin/module.php';
 ```
 Do not forget to pass the module settings when initializing the bot.
-
-## ⭐ Features 
- - Easy Localization
- - Database (MySQL, SQLite)
- - Cache
- - Modules (Extensions)
- - Easy Users Manage
- - All In One Object
 
 # Documentation
 ## 📜 Table of Contents
