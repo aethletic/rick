@@ -30,7 +30,7 @@ Do not forget to pass the module settings when initializing the bot.
 # Documentation
 ## 📜 Table of Contents
  - [Installation](#-installation)
- - [Example: Hello World Bot](#-example-helloworld-bot)
+ - [Examples Bots](#-examples-bot)
  - [Create Bot](#-create-bot)
  - [Available Variables](#-available-variables)
  - [Methods](#-methods)
