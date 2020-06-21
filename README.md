@@ -1179,9 +1179,9 @@ More methods and examples for work with database see [here](https://github.com/m
 
 
 # 🔖 Cache
-[Memcached](https://www.php.net/manual/en/book.memcached.php) is used for caching.
+For caching, [Memcached](https://www.php.net/manual/en/book.memcached.php) and [Radis](https://github.com/phpredis/phpredis) are used.
 
-> **NOTE:** Before work, make sure that you have the installed memcached exstension.
+> **NOTE:** Before work, make sure that you have the installed memcached/redis.
 
 ## Usage
 ```php
