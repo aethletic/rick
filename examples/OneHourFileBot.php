@@ -41,7 +41,7 @@ $bot->defaultMessage = "*Send a file to share it.*\n" .
                        "The link will be available *one hour*.\n" .
                        "After the expiration of *the link will never be available again*.\n";
 
-// listin /start command
+// listen /start command
 $bot->command(['/\/start/iu'], function () use ($bot) {
   // parse message "/start ABCDE"
   [$cmd, $code] = $bot->parse();
@@ -60,7 +60,7 @@ $bot->command(['/\/start/iu'], function () use ($bot) {
   $bot->sendDocument($bot->chat_id, $file_id, "@{$bot->botUserName}");
 });
 
-// listin if user send document file
+// listen if user send document file
 $bot->onDocument(function ($document) use ($bot) {
   // generate random code
   $code = setCode($bot->codeLenght);
