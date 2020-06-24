@@ -1268,13 +1268,15 @@ return [
         'HELLO' => 'Hi!',
     ],
 ];
+```
 
-$bot->loc->add(require __DIR__ . '/localization/en.php');
-
+```php
 // file: index.php
+$bot->loc->add(require '/localization/en.php'); // add php array lang template
 $bot->say($bot->loc->get('HELLO'));
 ```
 
+Or use a JSON template instead of a PHP array.
 ```php 
 // file: /localization/en.json
 { 
@@ -1284,6 +1286,13 @@ $bot->say($bot->loc->get('HELLO'));
     } 
 }
 ```
+
+```php
+// file: index.php
+$bot->loc->add('/localization/en.json'); // add json lang template
+$bot->say($bot->loc->get('HELLO'));
+```
+
 To pass a variable:
 ```php
 // file: /localization/en.php
@@ -1294,7 +1303,7 @@ return [
     ],
 ];
 
-$bot->loc->add(require __DIR__ . '/localization/en.php');
+$bot->loc->add(require '/localization/en.php');
 
 // file: index.php
 $bot->say($bot->loc->get('HELLO', [
