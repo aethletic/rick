@@ -549,13 +549,9 @@ $keyboard = [
     ]
 ]
 
-$bot->say('Inline Keyboard', Keyboard::inline([
-    ['👍', '👎']
-]));
+$bot->say('Inline Keyboard', Keyboard::inline($keyboard));
 
-$bot->say('Inline Keyboard', $bot->keyboard->inline([
-    ['👍', '👎']
-]));
+$bot->say('Inline Keyboard', $bot->keyboard->inline($keyboard));
 ```
 
 ## Keyboard::hide
