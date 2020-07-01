@@ -1180,7 +1180,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `state_data` text COLLATE utf8mb4_unicode_ci,
   `bot_version` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
 ## Connect SQLite
