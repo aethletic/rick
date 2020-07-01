@@ -51,6 +51,8 @@ $ composer require aethletic/botify
 ```
 
 ## 👀 Examples bot
+**More bot examples can see [here](https://github.com/aethletic/botify/tree/master/examples).**
+
 Simple Hello World bot.
 ```php
 use Botify\Core\Bot;
