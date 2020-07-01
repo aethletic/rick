@@ -160,9 +160,9 @@ $config = [
     'db.driver'         => 'mysql',
     // 'db.path'           => '/path/to/db.sqlite',
     'db.host'           => 'localhost',
-    'db.database'       => 'svetozar79_dev',
-    'db.username'       => 'svetozar79_dev',
-    'db.password'       => "!ctynz,hz",
+    'db.database'       => 'botify',
+    'db.username'       => 'botify',
+    'db.password'       => "h4CkM3",
     'db.charset'        => 'utf8mb4',
     'db.lazy'           => true,
 
