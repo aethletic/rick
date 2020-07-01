@@ -244,15 +244,25 @@ $bot->deleteWebhook();
 Send a simple chat message where the update came from.
 ```php 
 $bot->say($text);
-$bot->say($text, $keyboard);
+$bot->say($text, $keyboard = false);
+$bot->say($text, $keyboard = false, $scopes = []);
 ```
+
+```php
+$bot->say('Hello <b>there</b> 👋', $keyboard = false, ['parse_mode' => 'html']);
+```
+
+`$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
 ## reply()
 Send message and forward user message.
 ```php
 $bot->reply($text);
-$bot->reply($keyboard);
+$bot->reply($text, $keyboard = false);
+$bot->reply($text, $keyboard = false, $scopes = []);
 ```
+
+`$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
 ## action()
 Send chat status, for example, "Typing".
@@ -296,8 +306,10 @@ echo $serial_season; // 3
 ## dice
 Send a dice to chat.
 ```php 
-$bot->dice($emoji = '', $keyboard = false);
+$bot->dice($emoji = '', $keyboard = false, $scopes = []);
 ```
+
+`$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
 ## notify
 You can send a notification to the chat.
@@ -926,70 +938,73 @@ $bot->isNewUser(function () use ($bot) {
 
 # 🛩 Default Telegram Methods
 All Telegram methods can be found [here](https://core.telegram.org/bots/api#available-methods).
+
+`$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
+
 ## sendAction
 > **Available $action:** typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location, record_video_note, upload_video_note
 ```php
-$bot->sendAction($chat_id, $action);
+$bot->sendAction($chat_id, $action, $scopes = []);
 ```
 ## sendMessage
 ```php
-$bot->sendMessage($chat_id, $text, $keyboard = false);
+$bot->sendMessage($chat_id, $text, $keyboard = false, $scopes = []);
 ```
 ## sendReply
 ```php
-$bot->sendReply($chat_id, $message_id, $text, $keyboard = false);
+$bot->sendReply($chat_id, $message_id, $text, $keyboard = false, $scopes = []);
 ```
 ## sendDice
 ```php
-$bot->sendDice($chat_id, $emoji = '', $keyboard = false);
+$bot->sendDice($chat_id, $emoji = '', $keyboard = false, $scopes = []);
 ```
 ## sendDocument
 ```php
-$bot->sendDocument($chat_id, $file, $text = '', $keyboard = false)
+$bot->sendDocument($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
 ```
 ## sendPhoto
 ```php
-$bot->sendPhoto($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendPhoto($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## sendVoice
 ```php
-$bot->sendVoice($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendVoice($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## sendAudio
 ```php
-$bot->sendAudio($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendAudio($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## sendVideo
 ```php
-$bot->sendVideo($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendVideo($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## sendAnimation
 ```php
-$bot->sendAnimation($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendAnimation($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## sendVideoNote
 ```php
-$bot->sendVideoNote($chat_id, $file, $text = '', $keyboard = false);
+$bot->sendVideoNote($chat_id, $file, $text = '', $keyboard = false, $scopes = []);
 ```
 ## deleteMessage
 Works only for bot message. **You cannot delete user message.** 
 ```php
-$bot->deleteMessage($chat_id, $message_id);
+$bot->deleteMessage($chat_id, $message_id, $scopes = []);
 ```
 ## editMessageText
 Works only for bot message. **You cannot edit user message.** 
 ```php
-$bot->editMessageText($message_id, $text = '', $keyboard = false);
+$bot->editMessageText($message_id, $text = '', $keyboard = false, $scopes = []);
 ```
 ## editMessageCaption
 Works only for bot message. **You cannot edit user message.** 
 ```php
-$bot->editMessageCaption($message_id, $text = '', $keyboard = false);
+$bot->editMessageCaption($message_id, $text = '', $keyboard = false, $scopes = []);
 ```
 ## editMessageReplyMarkup
 Works only for bot message. **You cannot edit user message.** 
 ```php
-$bot->editMessageReplyMarkup($message_id, $keyboard = false);
+$bot->editMessageReplyMarkup($message_id, $keyboard = false, $scopes = []);
 ```
 ## answerInlineQuery
 ```php
