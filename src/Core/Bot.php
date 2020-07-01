@@ -545,12 +545,14 @@ class Bot
         return $this->request('answerInlineQuery', $parameters);
     }
 
-    public function sendAction($chat_id, $action)
+    public function sendAction($chat_id, $action, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
             'action' => $action,
         ];
+
+        $parameters = array_merge($parameters, $scopes);
 
         $this->request('sendChatAction', $parameters);
 
@@ -567,7 +569,7 @@ class Bot
         return $this->request('sendChatAction', $parameters)['ok'];
     }
 
-    public function editMessageText($message_id, $text = '', $keyboard = false)
+    public function editMessageText($message_id, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -579,10 +581,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('editMessageText', $parameters);
     }
 
-    public function editMessageCaption($message_id, $text = '', $keyboard = false)
+    public function editMessageCaption($message_id, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -594,10 +598,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('editMessageText', $parameters);
     }
 
-    public function editMessageReplyMarkup($message_id, $keyboard = false)
+    public function editMessageReplyMarkup($message_id, $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -608,10 +614,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('editMessageReplyMarkup', $parameters);
     }
 
-    public function sendMessage($chat_id, $text = '', $keyboard = false)
+    public function sendMessage($chat_id, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -622,10 +630,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendMessage', $parameters);
     }
 
-    public function sendDice($chat_id, $emoji = '', $keyboard = false)
+    public function sendDice($chat_id, $emoji = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -635,10 +645,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendMessage', $parameters);
     }
 
-    public function sendReply($chat_id, $message_id, $text = '', $keyboard = false)
+    public function sendReply($chat_id, $message_id, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -650,10 +662,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendMessage', $parameters);
     }
 
-    public function sendDocument($chat_id, $file, $text = '', $keyboard = false)
+    public function sendDocument($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -665,10 +679,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendDocument', $parameters, $is_file = true);
     }
 
-    public function sendPhoto($chat_id, $file, $text = '', $keyboard = false)
+    public function sendPhoto($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -680,10 +696,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendPhoto', $parameters, $is_file = true);
     }
 
-    public function sendVoice($chat_id, $file, $text = '', $keyboard = false)
+    public function sendVoice($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -695,10 +713,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendVoice', $parameters, $is_file = true);
     }
 
-    public function sendAudio($chat_id, $file, $text = '', $keyboard = false)
+    public function sendAudio($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -710,10 +730,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendAudio', $parameters, $is_file = true);
     }
 
-    public function sendVideo($chat_id, $file, $text = '', $keyboard = false)
+    public function sendVideo($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -725,10 +747,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendVideo', $parameters, $is_file = true);
     }
 
-    public function sendAnimation($chat_id, $file, $text = '', $keyboard = false)
+    public function sendAnimation($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -740,10 +764,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendAnimation', $parameters, $is_file = true);
     }
 
-    public function sendVideoNote($chat_id, $file, $text = '', $keyboard = false)
+    public function sendVideoNote($chat_id, $file, $text = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
@@ -754,6 +780,8 @@ class Bot
 
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
+
+        $parameters = array_merge($parameters, $scopes);
 
         return $this->request('sendVideoNote', $parameters, $is_file = true);
     }
@@ -769,7 +797,7 @@ class Bot
         return $this->request('sendMessage', $parameters, $is_file = false);
     }
 
-    public function say($text, $keyboard = false)
+    public function say($text, $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -780,10 +808,12 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendMessage', $parameters);
     }
 
-    public function reply($text, $keyboard = false)
+    public function reply($text, $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -795,6 +825,8 @@ class Bot
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
 
+        $parameters = array_merge($parameters, $scopes);
+
         return $this->request('sendMessage', $parameters);
     }
 
@@ -803,19 +835,21 @@ class Bot
      * upload_audio, upload_document, find_location, record_video_note,
      * upload_video_note
      */
-    public function action($action)
+    public function action($action, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
             'action' => $action,
         ];
 
+        $parameters = array_merge($parameters, $scopes);
+
         $this->request('sendChatAction', $parameters);
 
         return $this;
     }
 
-    public function notify($text, $alert = false)
+    public function notify($text, $alert = false, $scopes = [])
     {
         if (!$this->isCallback)
             return;
@@ -828,10 +862,12 @@ class Bot
         if ($alert)
             $parameters['show_alert'] = true;
 
+        $parameters = array_merge($parameters, $scopes);
+
         $this->request('answerCallbackQuery', $parameters);
     }
 
-    public function dice($emoji = '', $keyboard = false)
+    public function dice($emoji = '', $keyboard = false, $scopes = [])
     {
         $parameters = [
             'chat_id' => $this->chat_id,
@@ -840,6 +876,8 @@ class Bot
 
         if ($keyboard)
             $parameters['reply_markup'] = $keyboard;
+
+        $parameters = array_merge($parameters, $scopes);
 
         return $this->request('sendMessage', $parameters);
     }
@@ -1013,12 +1051,14 @@ class Bot
         return basename($local_file_path);
     }
 
-    public function deleteMessage($chat_id, $message_id)
+    public function deleteMessage($chat_id, $message_id, $scopes = [])
     {
         $parameters = [
             'chat_id' => $chat_id,
             'message_id' => $message_id,
         ];
+
+        $parameters = array_merge($parameters, $scopes);
 
         return $this->request('deleteMessage', $parameters, $is_file = false);
     }
