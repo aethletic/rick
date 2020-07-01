@@ -261,7 +261,7 @@ $bot->say('It was {{cool|nice|ok}}!'); // It was ok!
 `$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
 ## reply()
-Send message and forward user message.
+Send message and forward current user message from Telegram update.
 ```php
 $bot->reply($text);
 $bot->reply($text, $keyboard = false);
