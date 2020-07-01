@@ -252,6 +252,12 @@ $bot->say($text, $keyboard = false, $scopes = []);
 $bot->say('Hello <b>there</b> 👋', $keyboard = false, ['parse_mode' => 'html']);
 ```
 
+You can diversify messages of the same type by sending different variants of words or phrases. To do this, put a word or phrase in the view structure {{word1|word2|etc}}.
+
+```php
+$bot->say('It was {{cool|nice|ok}}!');
+```
+
 `$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
 ## reply()
@@ -260,6 +266,12 @@ Send message and forward user message.
 $bot->reply($text);
 $bot->reply($text, $keyboard = false);
 $bot->reply($text, $keyboard = false, $scopes = []);
+```
+
+You can diversify messages of the same type by sending different variants of words or phrases. To do this, put a word or phrase in the view structure {{word1|word2|etc}}.
+
+```php
+$bot->reply('Random number from 1 to 3: {{1|2|3}}');
 ```
 
 `$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
