@@ -6,9 +6,6 @@
  * The link to the file will be available for exactly one hour,
  * after the expiration of time it deletes and the link to
  * the file will no longer be available.
- *
- * Demo Bot - @OneHourFileBot
- * @see https://t.me/OneHourFileBot
  */  
 
 use Botify\Core\Bot;
