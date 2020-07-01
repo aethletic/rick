@@ -1,3 +1,5 @@
+<?php 
+
 use Botify\Core\Bot;
 
 require '/vendor/autoload.php';
