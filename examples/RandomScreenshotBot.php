@@ -12,7 +12,7 @@ $bot->hear(['{default}'], function () use ($bot) {
     $bot->reply('Whoops! Please, click button.');
 });
 
-$bot->command(['/\/start/'], function () use ($bot) {
+$bot->command(['/\/start/iu'], function () use ($bot) {
     $bot->say('Good luck, netstalker! ✊', $bot->keyboard->show([
         ['🔍 Random Screenshot']
     ]));
