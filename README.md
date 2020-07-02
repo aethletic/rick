@@ -458,7 +458,7 @@ Sample received message:
 ```
 
 ## getUpdate
-Get array of update from `php://input`.
+Get raw array of Telegram update from `php://input`.
 ```php
 $update = $bot->getUpdate();
 ```
