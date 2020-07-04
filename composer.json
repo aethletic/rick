@@ -12,6 +12,7 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "aethletic/database": "*"
+        "aethletic/database": "*",
+        "aethletic/phpmorphy": "*"
     }
 }
