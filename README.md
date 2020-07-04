@@ -37,6 +37,7 @@ Do not forget to pass the module settings when initializing the bot.
  - [Keyboard](#-keyboard)
  - [Events](#-events)
  - [Default Telegram Methods](#-default-telegram-methods)
+ - [Talk (classic chat bot)](#-talk)
  - [File Upload](#-file)
  - [States](#-states)
  - [Database](#-database)
@@ -1061,7 +1062,7 @@ $bot->sendPhoto($chat_id, File::upload('/storage/photos/gf_nudes.jpg'));
 $bot->sendDocument($chat_id, File::upload('/storage/file/secretly.pdf'));
 ```
 
-# Talk
+# 👄 Talk
 Talk - easy communication between the user and the bot. 
 
 Teach the bot several phrases with keywords and it will be able to respond to such messages.
@@ -1108,7 +1109,7 @@ If set debug `true`, an additional message will be sent with information.
 {
     "id": 2,
     "count": 27,
-    "score": 5,
+    "score": 4,
     "matches": [
         "I",
         "WANT",
