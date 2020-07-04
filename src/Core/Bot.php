@@ -105,6 +105,7 @@ class Bot
         $this->keyboard = new Keyboard();
 
         $this->talk = new Talk();
+        $this->morphy = $this->talk->morphy;
 
         $state_data = $this->getState();
         $this->state_name = $state_data['name'];
