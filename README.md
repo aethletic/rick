@@ -10,6 +10,7 @@ Skeleton template for this library can be found here [botify-template](https://g
  - [Database](#-database) (MySQL, SQLite)
  - [Cache](#-cache) Support (Redis, Memcached)
  - Bot Modules (Extensions)
+ - Support [PHP Morphy](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы) ([detail](#-talk))
  - All In One Object
 
 ## 🦾 Modules 
@@ -1054,13 +1055,6 @@ Save file on server.
 $bot->saveFile($file_path_url, $local_file_path = false);
 $bot->saveFile($file_path_url, '/storage/files/{basename}');
 ```
-# 📝 File
-If you want to send a local file (photo, document, audio, etc.) use `File::upload`.
-```php 
-use Botify\Core\File;
-$bot->sendPhoto($chat_id, File::upload('/storage/photos/gf_nudes.jpg'));
-$bot->sendDocument($chat_id, File::upload('/storage/file/secretly.pdf'));
-```
 
 # 👄 Talk
 Talk - easy communication between the user and the bot. 
@@ -1068,6 +1062,14 @@ Talk - easy communication between the user and the bot.
 Teach the bot several phrases with keywords and it will be able to respond to such messages.
 
 Like a neural network, but not a neural network :)
+
+```php
+$bot->talk; // this is PHP Morphy object
+```
+
+PHP Morphy [documentation](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы) can be found [here](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы).
+
+For change language dictionary use method `setLanguage()`.
 
 ## setLanguage
 Set the language.
@@ -1181,6 +1183,13 @@ User message: `I need some help for me.`
 
 Bot answer: `Okay. I can help you.`
 
+# 📝 File
+If you want to send a local file (photo, document, audio, etc.) use `File::upload`.
+```php 
+use Botify\Core\File;
+$bot->sendPhoto($chat_id, File::upload('/storage/photos/gf_nudes.jpg'));
+$bot->sendDocument($chat_id, File::upload('/storage/file/secretly.pdf'));
+```
 
 # 📌 States
 **States** - with the help of states you can store data about the current user action.
