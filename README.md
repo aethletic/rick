@@ -1064,7 +1064,7 @@ Teach the bot several phrases with keywords and it will be able to respond to su
 Like a neural network, but not a neural network :)
 
 ```php
-$bot->talk; // this is PHP Morphy object
+$bot->talk->morphy; // This is PHP Morphy object. You can use it.
 ```
 
 PHP Morphy [documentation](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы) can be found [here](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы).
