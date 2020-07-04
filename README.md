@@ -325,6 +325,21 @@ $bot->dice($emoji = '', $keyboard = false, $scopes = []);
 
 `$scopes` is additional parameters that you want to pass, for example, `parse_mode`.
 
+## plural
+Gets the form of a word depending on the quantity.
+
+It works correctly **only** for the Russian language (maybe Ukrainian, Belarusian).
+
+```php 
+$bot->plural($n, $forms = []);
+```
+
+```php 
+$bot->say('15 ' . $bot->plural(15, ['сообщение', 'сообщения', 'сообщений'])); // 15 сообщений
+$bot->say('1 ' . $bot->plural(15, ['сообщение', 'сообщения', 'сообщений'])); // 1 сообщение
+$bot->say('3 ' . $bot->plural(15, ['сообщение', 'сообщения', 'сообщений'])); // 3 сообщения
+```
+
 ## notify
 You can send a notification to the chat.
 It works only if the `callback_data` came in the update
@@ -1045,6 +1060,126 @@ use Botify\Core\File;
 $bot->sendPhoto($chat_id, File::upload('/storage/photos/gf_nudes.jpg'));
 $bot->sendDocument($chat_id, File::upload('/storage/file/secretly.pdf'));
 ```
+
+# Talk
+Talk - easy communication between the user and the bot. 
+
+Teach the bot several phrases with keywords and it will be able to respond to such messages.
+
+Like a neural network, but not a neural network :)
+
+## setLanguage
+Set the language.
+
+Supported languages: `en`, `de`, `ua`, `ru`.
+
+```php
+$bot->talk->setLanguage('en');
+```
+
+## add
+Add phrases and callbacks for them.
+
+```php 
+$bot->talk->add($messages = [], $callback);
+```
+
+```php
+$bot->talk->add(
+    [
+        'User message with keywords',
+        'Use all possible different formulations.',
+        'The more message options the better.',
+        'Messages can be sent in one element.',
+    ],
+    function () use ($bot) {
+        $bot->say('Example answer for this case.');
+    }
+);
+```
+
+## setDebug
+```php
+$bot->talk->setDebug($bool);
+```
+
+If set debug `true`, an additional message will be sent with information.
+```json
+{
+    "id": 2,
+    "count": 27,
+    "score": 5,
+    "matches": [
+        "I",
+        "WANT",
+        "BUY",
+        "COFFEE"
+    ]
+}
+```
+
+## Talk examples
+```php
+$bot->talk->setLanguage('en');
+$bot->talk->setDebug(true);
+$bot->talk->add(
+    [
+        'I want to talk with the operator.',
+        'connect me with the operator.',
+        'I want to talk with the operator.',
+        'I need help.',
+        'help me.',
+        'I have a problem.',
+        'I can not solve the problem.',
+    ],
+    function () use ($bot) {
+        $bot->say('Okay. I can help you.');
+    }
+);
+
+$bot->talk->add(
+    [
+        'How much is coffee',
+        'I would like to know how much coffee costs.',
+        'hear how much coffee costs.',
+        'where to see the price of coffee?',
+        'find out the price of coffee.',
+        'How can I find out the price of coffee?',
+        'Where are your prices for coffee?',
+    ],
+    function () use ($bot) {
+        $bot->say('Coffee costs $3.');
+    }
+);
+
+$bot->talk->add(
+    [
+        'I want to buy coffee.',
+        'I would like to get some coffee.',
+        'where can i buy your coffee.',
+        'where could I buy coffee.',
+        'could i buy some coffee?',
+        'how to buy coffee?',
+        'How to get coffee?',
+        'to buy coffee.',
+        'get some coffee.',
+    ],
+    function () use ($bot) {
+        $bot->say('You can buy coffee on our website.');
+    }
+);
+```
+
+Now, if you send a message to the bot, for example: `Where to buy your wonderful coffee?`
+
+Then he will answer: `You can buy coffee on our website.`
+
+Or another example message:
+
+User message: `I need some help for me.`
+
+Bot answer: `Okay. I can help you.`
+
 
 # 📌 States
 **States** - with the help of states you can store data about the current user action.
