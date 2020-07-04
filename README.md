@@ -5,11 +5,11 @@
 Skeleton template for this library can be found here [botify-template](https://github.com/aethletic/botify-template).
 
 ## ⭐ Features 
- - Easy Localization
- - Database (MySQL, SQLite)
- - Cache
- - Modules (Extensions)
- - Easy Users Manage
+ - [Talk](#-talk) (classic chat bot)
+ - Easy [Localization](#-localization)
+ - [Database](#-database) (MySQL, SQLite)
+ - [Cache](#-cache) Support (Redis, Memcached)
+ - Bot Modules (Extensions)
  - All In One Object
 
 ## 🦾 Modules 
