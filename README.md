@@ -1065,6 +1065,7 @@ Like a neural network, but not a neural network :)
 
 ```php
 $bot->talk->morphy; // This is PHP Morphy object. You can use it.
+$bot->morphy; // Short alias for $bot->talk->morphy
 ```
 
 PHP Morphy [documentation](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы) can be found [here](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы).
