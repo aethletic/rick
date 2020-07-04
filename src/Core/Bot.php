@@ -9,6 +9,7 @@ use Botify\Core\Database;
 use Botify\Core\Logger;
 use Botify\Core\User;
 use Botify\Core\Localization;
+use Botify\Core\Talk;
 
 require_once __DIR__ . '/Keyboard.php';
 require_once __DIR__ . '/Cache.php';
@@ -17,6 +18,7 @@ require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/Logger.php';
 require_once __DIR__ . '/User.php';
 require_once __DIR__ . '/Localization.php';
+require_once __DIR__ . '/Talk.php';
 
 class Bot
 {
@@ -101,6 +103,8 @@ class Bot
         $this->user = new User($this);
 
         $this->keyboard = new Keyboard();
+
+        $this->talk = new Talk();
 
         $state_data = $this->getState();
         $this->state_name = $state_data['name'];
@@ -966,6 +970,18 @@ class Bot
                 return call_user_func_array($command['callback'], is_string($command['callback']) ? $this : []);
             }
 
+            // morphy talk
+            $talk_data = $this->talk->get($this->message);
+            if ($talk_data) {
+                $callback = $this->talk->getCallbackByID($talk_data['id']);
+                call_user_func_array($callback, is_string($callback) ? $this : []);
+                if ($this->talk->isDebug()) {
+                    return $this->say('`'.json_encode($talk_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE).'`');
+                }
+                return;
+            }
+
+            // default answer
             if (array_key_exists('{default}', $this->commands)) {
                 $callback = $this->commands['{default}']['callback'];
                 return call_user_func_array($callback, is_string($callback) ? $this : []);
@@ -987,6 +1003,18 @@ class Bot
                 return call_user_func_array($message['callback'], is_string($message['callback']) ? $this : []);
             }
 
+            // morphy talk
+            $talk_data = $this->talk->get($this->message);
+            if ($talk_data) {
+                $callback = $this->talk->getCallbackByID($talk_data['id']);
+                call_user_func_array($callback, is_string($callback) ? $this : []);
+                if ($this->talk->isDebug()) {
+                    return $this->say('`'.json_encode($talk_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE).'`');
+                }
+                return;
+            }
+
+            // default answer
             if (array_key_exists('{default}', $this->messages)) {
                 $callback = $this->messages['{default}']['callback'];
                 return call_user_func_array($callback, is_string($callback) ? $this : []);
@@ -1251,5 +1279,11 @@ class Bot
     public function register($var, $data)
     {
         $this->$var = $data;
+    }
+
+    // $n = 42, $forms = ['арбуз', 'арбуза', 'арбузов']
+    public function plural($n, $forms)
+    {
+        return is_float($n)?$forms[1]:($n%10==1&&$n%100!=11?$forms[0]:($n%10>=2&&$n%10<=4&&($n%100<10||$n%100>=20)?$forms[1]:$forms[2]));
     }
 }
