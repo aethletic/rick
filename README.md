@@ -2,7 +2,7 @@
 # Botify 🧙‍♂️
 #### Simple & developer-friendly Telegram Bot Api Library for PHP.
 
-Skeleton template for this library can be found here [botify-template](https://github.com/aethletic/botify-template).
+Ready-for-use [skeleton project](https://github.com/aethletic/botify-template) for this library + web dashboard (stats, analytics, manage)
 
 ## ⭐ Features 
  - [Talk](#-talk) (classic chat bot)
