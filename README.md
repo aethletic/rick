@@ -28,6 +28,12 @@ include __DIR__ . '/modules/botify.admin/module.php';
 ```
 Do not forget to pass the module settings when initializing the bot.
 
+ # 📦 Installation 
+ 
+```
+$ composer require aethletic/botify
+```
+
 # Documentation
 ## 📜 Table of Contents
  - [Installation](#-installation)
@@ -45,12 +51,6 @@ Do not forget to pass the module settings when initializing the bot.
  - [Cache](#-cache)
  - [Localization](#-localization)
  - [Logs](#-logs)
- 
- ## 📦 Installation 
- 
-```
-$ composer require aethletic/botify
-```
 
 ## 👀 Examples bot
 **More bot examples can see [here](https://github.com/aethletic/botify/tree/master/examples).**
