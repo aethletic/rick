@@ -12,7 +12,6 @@ $config = [
 
 $bot = new Bot('1234567890:ABC_TOKEN', $config);
 
-// use regex for insensetive case
 $bot->command(['/set'], function () use ($bot) {
   // parse message (default separator " " space)
   // you can be pass other separator like $bot->parse('_');
