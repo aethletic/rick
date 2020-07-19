@@ -28,7 +28,7 @@ include __DIR__ . '/modules/botify.admin/module.php';
 ```
 Do not forget to pass the module settings when initializing the bot.
 
- # 📦 Installation 
+ ## 📦 Installation 
  
 ```
 $ composer require aethletic/botify
