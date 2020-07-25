@@ -13,6 +13,12 @@ Ready-for-use [skeleton project](https://github.com/aethletic/botify-template) f
  - Support [PHP Morphy](http://phpmorphy.sourceforge.net/dokuwiki/manual#методы) ([detail](#-talk))
  - All In One Object
 
+## 🤖 Bots who use this library:
+ - [@VoicfyBot](https://t.me/VoicfyBot)
+ - [@Kinoplenkaa_Bot](https://t.me/Kinoplenkaa_Bot)
+ - [@PrntSc_bot](https://t.me/PrntSc_bot)
+ - [@OneHourFileBot (example bot)](https://t.me/OneHourFileBot)
+
 ## 🦾 Modules 
 **Modules** are a part of the code or functionality that can be used in different projects. 
 You make a module once and then use it in future projects so as not to waste time re-developing it.
