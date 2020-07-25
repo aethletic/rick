@@ -26,6 +26,7 @@ You make a module once and then use it in future projects so as not to waste tim
 Modules for this framework:
 - (rus) [botify-module.start](https://github.com/aethletic/botify-module.start) - notification about new users
 - (rus) [botify-module.admin](https://github.com/aethletic/botify-module.admin) - manage users 
+- [botify-module.stats](https://github.com/aethletic/botify-module.stats) - stats for message, users
 
 > **NOTE:** Include module file immediately after the bot initialization.
 ```php
