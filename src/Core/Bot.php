@@ -105,7 +105,6 @@ class Bot
         $this->keyboard = new Keyboard();
 
         $this->talk = new Talk();
-        $this->morphy = $this->talk->morphy;
 
         $state_data = $this->getState();
         $this->state_name = $state_data['name'];
@@ -141,6 +140,7 @@ class Bot
             return;
         }
 
+        $key = '';
         if (array_key_exists('message', $update))
             $key = 'message';
 
@@ -515,6 +515,14 @@ class Bot
         return json_decode(file_get_contents($this->base_url . $token . '/deleteWebhook'), true);
     }
 
+    public function getWebhookInfo($token = false)
+    {
+        if (!$token && array_key_exists('bot.token', $this->config))
+            $token = $this->config['bot.token'];
+
+        return json_decode(file_get_contents($this->base_url . $token . '/getWebhookInfo'), true);
+    }
+
     public function request($method, $parameters, $is_file = false)
     {
         $url = $this->base_url . $this->token . '/' . $method;
@@ -572,6 +580,20 @@ class Bot
         ];
 
         return $this->request('sendChatAction', $parameters)['ok'];
+    }
+
+    public function isActiveAndUpdate($chat_id, $action = 'typing')
+    {
+        $parameters = [
+            'chat_id' => $chat_id,
+            'action' => $action,
+        ];
+
+        $update = [
+          'is_active' => (int) $this->request('sendChatAction', $parameters)['ok'],
+        ];
+
+        return  $this->user->updateById($chat_id, $update);
     }
 
     public function editMessageText($message_id, $text = '', $keyboard = false, $scopes = [])

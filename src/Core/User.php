@@ -24,7 +24,11 @@ class User
         if (!$update) {
             return;
         }
-        
+
+        if (!property_exists($this->bot, 'user_id')) {
+          return;
+        }
+
         if (in_array($this->bot->user_id, $this->bot->config['admin.list']) || in_array($this->bot->username, $this->bot->config['admin.list']))
             $this->isAdmin = true;
 
