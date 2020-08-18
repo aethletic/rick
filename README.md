@@ -631,7 +631,7 @@ $bot->hear('ping?', function () use ($bot) {
 });
 
 // or call class method
-$bot->hear('ping?', '\My\Best\Bot@sayPong'); // public statuc function($bot) {}
+$bot->hear('ping?', '\My\Best\Bot@sayPong'); // public static function($bot) {}
 ```
 ```php
 $bot->hear('{default}', function () use ($bot) {
