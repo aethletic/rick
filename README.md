@@ -629,6 +629,9 @@ Catch a text message from a user.
 $bot->hear('ping?', function () use ($bot) {
     $bot->say('pong!');
 });
+
+// or call class method
+$bot->hear('ping?', '\My\Best\Bot@sayPong'); // public statuc function($bot) {}
 ```
 ```php
 $bot->hear('{default}', function () use ($bot) {
@@ -654,6 +657,9 @@ Catch a command message from a user.
 $bot->command('/start', function () use ($bot) {
     $bot->say('Well met!');
 });
+
+// or call class method
+$bot->command('/ping','\My\Best\Bot@sayPong'); 
 ```
 ```php
 $bot->command('{default}', function () use ($bot) {
@@ -686,6 +692,9 @@ Catch a callback event from a user.
 $bot->callback('some_callback_data', function () use ($bot) {
     $bot->say('Yep!');
 });
+
+// or call class method
+$bot->callback('my_callback_ping','\My\Best\Bot@sayPong'); 
 ```
 ```php
 $bot->callback('{default}', function () use ($bot) {
