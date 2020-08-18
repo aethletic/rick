@@ -631,7 +631,7 @@ $bot->hear('ping?', function () use ($bot) {
 });
 
 // or call class method
-$bot->hear('ping?', '\My\Best\Bot@sayPong'); // public static function sayPong($bot) {}
+$bot->hear('ping?', '\My\Best\Bot::sayPong'); // public static function sayPong($bot) {}
 ```
 ```php
 $bot->hear('{default}', function () use ($bot) {
@@ -659,7 +659,7 @@ $bot->command('/start', function () use ($bot) {
 });
 
 // or call class method
-$bot->command('/ping','\My\Best\Bot@sayPong'); 
+$bot->command('/ping','\My\Best\Bot::sayPong'); 
 ```
 ```php
 $bot->command('{default}', function () use ($bot) {
@@ -694,7 +694,7 @@ $bot->callback('some_callback_data', function () use ($bot) {
 });
 
 // or call class method
-$bot->callback('my_callback_ping','\My\Best\Bot@sayPong'); 
+$bot->callback('my_callback_ping','\My\Best\Bot::sayPong'); 
 ```
 ```php
 $bot->callback('{default}', function () use ($bot) {
