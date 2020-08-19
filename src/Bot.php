@@ -50,7 +50,38 @@ class Bot extends Container
   private $default_answers = ['{default}', '{any}'];
 
   public $config = [
-    'telegram.parse_mode' => 'html',
+    'bot.token'               => '1234567890:ABC_DE',
+    'bot.version'             => '1.0.0',
+    'bot.debug'               => true,
+    'bot.timezone'            => 'Europe/Samara',
+    'bot.spam_timeout'        => 1,
+    'bot.default_lang'        => 'en',
+    'bot.max_system_load'     => 0.80,
+    'bot.max_execution_time'  => 60,
+
+    'admin.list'              => ['botify'],
+    'admin.password'          => 'hackme',
+
+    'telegram.parse_mode'     => 'html',
+
+    'database.check_tables'   => false,
+    'database.driver'         => false,
+    'database.path'           => '/path/to/database.sqlite',
+    'database.host'           => 'localhost',
+    'database.database'       => 'botify',
+    'database.username'       => 'botify',
+    'database.password'       => 'hackme',
+    'database.charset'        => 'utf8mb4',
+    'database.collation'      => 'utf8mb4_unicode_ci',
+    'database.lazy'           => true,
+
+    'cache.driver'            => false,
+    'cache.host'              => 'localhost',
+    'cache.port'              => '11211',
+
+    'log.db_store_messages'   => false,
+    'log.autolog'             => false,
+    'log.dir'                 => '/path/to/log/dir/',
   ];
 
   public $isInline = false;
@@ -758,6 +789,7 @@ class Bot extends Container
 
   public function run()
   {
+
     header('Content-Type: application/json');
     if (!$this->isUpdate()) {
       header('Content-Type: application/json');
@@ -835,6 +867,7 @@ class Bot extends Container
 
     // hear
     if ($this->isMessage || $this->isEditedMessage) {
+
       $has_answer = false;
       foreach ($this->messages as $key => $message) {
           if ($this->isSkipped()) return;
@@ -865,7 +898,8 @@ class Bot extends Container
             }
           }
 
-          call_user_func_array($message['callback'], is_string($message['callback']) ? $this : []);
+          $rs = call_user_func_array($message['callback'], is_string($message['callback']) ? $this : []);
+          var_dump($rs);
           $has_answer = true;
           continue;
       }
