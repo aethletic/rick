@@ -1,6 +1,6 @@
 <?php
 
-namespace Botify4\Extension;
+namespace Botify\Extension;
 
 class File
 {

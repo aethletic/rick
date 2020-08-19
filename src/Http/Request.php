@@ -1,8 +1,8 @@
 <?php
 
-namespace Botify4\Http;
+namespace Botify\Http;
 
-use Botify4\Bot;
+use Botify\Bot;
 
 class Request
 {

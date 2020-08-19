@@ -1,9 +1,9 @@
 <?php
 
-namespace Botify4\Extension;
+namespace Botify\Extension;
 
-use Botify4\Exception;
-use Botify4\Util;
+use Botify\Exception;
+use Botify\Util;
 
 class User extends AbstractExtension
 {

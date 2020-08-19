@@ -1,19 +1,19 @@
 <?php
 
-namespace Botify4;
+namespace Botify;
 
 use Aethletic\App\Container;
-use Botify4\Exception;
-use Botify4\Http\Request;
-use Botify4\Util;
-use Botify4\Methods;
-use Botify4\Extension\Keyboard;
-use Botify4\Extension\Database;
-use Botify4\Extension\User;
-use Botify4\Extension\Cache;
-use Botify4\Extension\File;
-use Botify4\Extension\Localization;
-use Botify4\Extension\Log;
+use Botify\Exception;
+use Botify\Http\Request;
+use Botify\Util;
+use Botify\Methods;
+use Botify\Extension\Keyboard;
+use Botify\Extension\Database;
+use Botify\Extension\User;
+use Botify\Extension\Cache;
+use Botify\Extension\File;
+use Botify\Extension\Localization;
+use Botify\Extension\Log;
 
 class Bot extends Container
 {

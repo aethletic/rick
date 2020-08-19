@@ -1,5 +1,5 @@
 <?php
 
-namespace Botify4\Exception;
+namespace Botify\Exception;
 
 class Bot extends \Exception {}

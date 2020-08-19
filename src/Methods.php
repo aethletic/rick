@@ -1,8 +1,8 @@
 <?php
 
-namespace Botify4;
+namespace Botify;
 
-use Botify4\Util;
+use Botify\Util;
 
 class Methods
 {

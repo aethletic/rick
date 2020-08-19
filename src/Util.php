@@ -1,9 +1,19 @@
 <?php
 
-namespace Botify4;
+namespace Botify;
 
 class Util
 {
+    public function bootstrap($dirs)
+    {
+      foreach ($dirs as $dir) {
+          $files = glob($dir);
+          foreach ($files as $key => $file) {
+              require_once $file;
+          }
+      }
+    }
+
     public function shuffle($message)
     {
         preg_match_all('/{{(.+?)}}/mi', $message, $sentences);

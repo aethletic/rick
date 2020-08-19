@@ -1,8 +1,8 @@
 <?php
 
-namespace Botify4\Extension;
+namespace Botify\Extension;
 
-use Botify4\Bot;
+use Botify\Bot;
 
 abstract class AbstractExtension
 {
