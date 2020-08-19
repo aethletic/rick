@@ -15,26 +15,26 @@ class Methods
 
   public function setWebhook($url = false)
   {
-      if (!$url && array_key_exists('bot.url', $this->config))
-          $url = $this->config['bot.url'];
+      if (!$url && array_key_exists('bot.url', $this->bot->config))
+          $url = $this->bot->config['bot.url'];
 
-      return $url ? json_decode(file_get_contents($this->base_url . $this->token . '/setWebhook?url=' . $url), true) : false;
+      return $url ? json_decode(file_get_contents($this->bot->api_url . $this->bot->token . '/setWebhook?url=' . $url), true) : false;
   }
 
   public function deleteWebhook($token = false)
   {
-      if (!$token && array_key_exists('bot.token', $this->config))
-          $token = $this->config['bot.token'];
+      if (!$token && array_key_exists('bot.token', $this->bot->config))
+          $token = $this->bot->config['bot.token'];
 
-      return json_decode(file_get_contents($this->base_url . $token . '/deleteWebhook'), true);
+      return json_decode(file_get_contents($this->bot->api_url . $token . '/deleteWebhook'), true);
   }
 
   public function getWebhookInfo($token = false)
   {
-      if (!$token && array_key_exists('bot.token', $this->config))
-          $token = $this->config['bot.token'];
+      if (!$token && array_key_exists('bot.token', $this->bot->config))
+          $token = $this->bot->config['bot.token'];
 
-      return json_decode(file_get_contents($this->base_url . $token . '/getWebhookInfo'), true);
+      return json_decode(file_get_contents($this->bot->api_url . $token . '/getWebhookInfo'), true);
   }
 
   public function answerInlineQuery($results = [], $scopes = [])
