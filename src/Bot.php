@@ -51,6 +51,8 @@ class Bot extends Container
 
   public $config = [
     'bot.token'               => '1234567890:ABC_DE',
+    'bot.url'                 => 'https://example.com/bot.php',
+    'bot.web'                 => 'https://example.com/web/',
     'bot.version'             => '1.0.0',
     'bot.debug'               => true,
     'bot.timezone'            => 'Europe/Samara',

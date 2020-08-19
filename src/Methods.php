@@ -15,8 +15,8 @@ class Methods
 
   public function setWebhook($url = false)
   {
-      if (!$url && array_key_exists('bot.handler', $this->config))
-          $url = $this->config['bot.handler'];
+      if (!$url && array_key_exists('bot.url', $this->config))
+          $url = $this->config['bot.url'];
 
       return $url ? json_decode(file_get_contents($this->base_url . $this->token . '/setWebhook?url=' . $url), true) : false;
   }
