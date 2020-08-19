@@ -1,18 +1,23 @@
 {
-    "name": "aethletic/botify",
-    "description": "A simple Telegram Bot Api Framework for PHP.",
+    "name": "botify/botify",
+    "description": "Simple but powerful Telegram Bot API library for PHP.",
     "type": "library",
     "license": "MIT",
-    "authors": [{
-        "name": "Aethletic",
-        "email": "hello@botify.ru"
-    }],
-    "autoload": {
-        "files": ["src/Bootstrap.php"]
-    },
+    "authors": [
+        {
+            "name": "aethletic",
+            "email": "hello@botify.ru"
+        }
+    ],
     "require": {
-        "php": ">=5.4.0",
-        "aethletic/database": "*",
-        "aethletic/phpmorphy": "*"
+      "php": ">=5.4.0",
+      "aethletic/container": "^1.0",
+      "aethletic/database": "^1.0",
+      "aethletic/phpmorphy": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Botify4\\": "src/"
+        }
     }
 }
