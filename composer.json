@@ -1,5 +1,5 @@
 {
-    "name": "botify/botify",
+    "name": "aethletic/botify",
     "description": "Simple but powerful Telegram Bot API library for PHP.",
     "type": "library",
     "license": "MIT",
