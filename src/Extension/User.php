@@ -265,7 +265,7 @@ class User extends AbstractExtension
       'is_banned' => 1,
       'ban_from' => $from,
       'ban_to' => $to,
-      'ban_comment' => $comment
+      'ban_comment' => $comment,
       'state_name' => null,
       'state_data' => null,
     ];

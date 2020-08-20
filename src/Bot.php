@@ -19,8 +19,8 @@ class Bot extends Container
 {
   private const __VERSION__ = '4.0.0';
 
-  private $token;
-  private $api_url = 'https://api.telegram.org/bot';
+  public $token;
+  public $api_url = 'https://api.telegram.org/bot';
 
   public $request;
   public $keyboard;
@@ -144,6 +144,7 @@ class Bot extends Container
     error_reporting($is_debug ? E_ALL : 0);
     date_default_timezone_set($this->config['bot.timezone']);
 
+    // debug
     $this->update = $fakeUpdateJson ? json_decode($fakeUpdateJson, true) : $this->getUpdate();
     $this->setIsVars();
     $this->setUpdateVars();
@@ -828,7 +829,7 @@ class Bot extends Container
                       continue;
                     }
                   }
-                  call_user_func_array($command['callback'], is_string($command['callback']) ? $this : []);
+                  call_user_func_array($command['callback'], is_string($command['callback']) ? [$this] : []);
                   $has_answer = true;
                   continue;
                 }
@@ -843,7 +844,7 @@ class Bot extends Container
                 continue;
               }
             }
-            call_user_func_array($command['callback'], is_string($command['callback']) ? $this : []);
+            call_user_func_array($command['callback'], is_string($command['callback']) ? [$this] : []);
             $has_answer = true;
             continue;
         }
@@ -861,7 +862,7 @@ class Bot extends Container
               }
             }
 
-            return call_user_func_array($callback, is_string($callback) ? $this : []);
+            return call_user_func_array($callback, is_string($callback) ? [$this] : []);
         }
 
         return false;
@@ -883,7 +884,7 @@ class Bot extends Container
                     continue;
                   }
                 }
-                call_user_func_array($message['callback'], is_string($message['callback']) ? $this : []);
+                call_user_func_array($message['callback'], is_string($message['callback']) ? [$this] : []);
                 $has_answer = true;
                 continue;
               }
@@ -900,7 +901,7 @@ class Bot extends Container
             }
           }
 
-          $rs = call_user_func_array($message['callback'], is_string($message['callback']) ? $this : []);
+          $rs = call_user_func_array($message['callback'], is_string($message['callback']) ? [$this] : []);
           var_dump($rs);
           $has_answer = true;
           continue;
@@ -918,7 +919,7 @@ class Bot extends Container
             }
           }
 
-          return call_user_func_array($callback, is_string($callback) ? $this : []);
+          return call_user_func_array($callback, is_string($callback) ? [$this] : []);
       }
 
       return false;
@@ -938,7 +939,7 @@ class Bot extends Container
                       continue;
                     }
                   }
-                  call_user_func_array($action['callback'], is_string($action['callback']) ? $this : []);
+                  call_user_func_array($action['callback'], is_string($action['callback']) ? [$this] : []);
                   $has_answer = true;
                   continue;
                 }
@@ -954,7 +955,7 @@ class Bot extends Container
               }
             }
 
-            call_user_func_array($action['callback'], is_string($action['callback']) ? $this : []);
+            call_user_func_array($action['callback'], is_string($action['callback']) ? [$this] : []);
             $has_answer = true;
             continue;
         }
@@ -971,7 +972,7 @@ class Bot extends Container
               }
             }
 
-            return call_user_func_array($callback, is_string($callback) ? $this : []);
+            return call_user_func_array($callback, is_string($callback) ? [$this] : []);
         }
 
         return false;
@@ -1066,10 +1067,25 @@ class Bot extends Container
       return $this->replics[$key][array_rand($this->replics[$key])];
   }
 
+  public function addReplics($array)
+  {
+    $this->replics = $array;
+  }
+
   public function randomEmoji($key)
   {
       shuffle($this->emojis[$key]);
       return $this->emojis[$key][array_rand($this->emojis[$key])];
+  }
+
+  public function addEmojis($array)
+  {
+    $this->emojis = $array;
+  }
+
+  public function addKeyboards($array)
+  {
+    $this->keyboard->add($array);
   }
 
   public function beforeRun($callback)

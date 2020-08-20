@@ -20,6 +20,8 @@ class Localization extends AbstractExtension
         $lang = 'en';
       }
       $this->lang = $lang;
+
+      return $this;
     }
 
     public function setDefaultLang($lang = 'en')
@@ -28,6 +30,8 @@ class Localization extends AbstractExtension
         $lang = 'en';
       }
       $this->default_lang = $lang;
+
+      return $this;
     }
 
     public function get($key, $params = null)
@@ -57,5 +61,18 @@ class Localization extends AbstractExtension
             }
         }
         $this->localizations = array_merge($this->localizations, $localizations);
+
+        return $this;
+    }
+
+    public function exists($lang = false)
+    {
+      if (!$lang) return false;
+      return array_key_exists($lang, $this->localizations);
+    }
+
+    public function getAvailableLangs()
+    {
+      return array_keys($this->localizations);
     }
 }
