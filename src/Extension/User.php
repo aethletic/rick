@@ -21,7 +21,7 @@ class User extends AbstractExtension
   public function __construct($id = false, $is_user_id = true)
   {
     if (!$id) {
-      throw new Exception\Bot('Required parameter $id not passed.');
+      return false;
     }
 
     parent::__construct();

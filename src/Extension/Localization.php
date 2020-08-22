@@ -36,7 +36,7 @@ class Localization extends AbstractExtension
 
     public function get($key, $params = null)
     {
-        $msg = array_key_exists($this->lang, $this->localizations) ? $this->localizations[$this->lang][$key] : $this->localizations[$this->default_lang][$key];
+        $msg = array_key_exists($this->lang, $this->localizations) ? @$this->localizations[$this->lang][$key] : @$this->localizations[$this->default_lang][$key];
 
         if (is_array($params)) {
             foreach ($params as $key => $value) {
@@ -51,18 +51,16 @@ class Localization extends AbstractExtension
     // или массив вида ['ru' => ['hello' => 'привет']];
     public function add($localizations)
     {
-        if (!is_array($localizations)) {
-            $dir = $localizations;
-            $localizations = [];
-            foreach (glob($dir) as $key => $file) {
-                $lang = str_ireplace('.json', '', basename($file));
-                $data = json_decode(file_get_contents($file), true);
-                $localizations[$lang] = $data;
-            }
-        }
-        $this->localizations = array_merge($this->localizations, $localizations);
+      if (!is_array($localizations)) return false;
 
-        return $this;
+      foreach ($localizations as $key => $value) {
+        if (!array_key_exists($key, $this->localizations)) {
+          $this->localizations[$key] = [];
+        }
+        $this->localizations[$key] = array_merge($this->localizations[$key], $value);
+      }
+
+      return $this;
     }
 
     public function exists($lang = false)

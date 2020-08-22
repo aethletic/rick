@@ -2,9 +2,9 @@
 
 namespace Botify;
 
-use Aethletic\App\Container;
 use Botify\Exception;
 use Botify\Http\Request;
+use Botify\Container;
 use Botify\Util;
 use Botify\Methods;
 use Botify\Extension\Keyboard;
@@ -169,7 +169,7 @@ class Bot extends Container
 
     // User extension include only if Update exists and Database connected
     if ($this->isUpdate() && $this->db) {
-      $this->user = new User($this->user_id);
+      $this->user = new User(@$this->user_id);
     }
 
     if ($this->isUpdate() && $this->db && @$this->config['log.db_store_messages'] == true) {
@@ -777,7 +777,7 @@ class Bot extends Container
     if (!@$this->checkState())
         return;
 
-    if ($this->user->isAdmin)
+    if (@$this->user->isAdmin)
         call_user_func($callback);
   }
 
@@ -786,7 +786,7 @@ class Bot extends Container
     if (!@$this->checkState())
         return;
 
-    if ($this->user->isNewUser)
+    if (@$this->user->isNewUser)
         call_user_func($callback);
   }
 
@@ -902,7 +902,7 @@ class Bot extends Container
           }
 
           $rs = call_user_func_array($message['callback'], is_string($message['callback']) ? [$this] : []);
-          var_dump($rs);
+        
           $has_answer = true;
           continue;
       }
