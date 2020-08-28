@@ -747,8 +747,10 @@ class Bot extends Container
 
   public function onSpam($callback)
   {
+    if (!$this->db) return;
+
     if (!@$this->checkState())
-        return;
+      return;
 
     if (@$this->user->isSpam)
         call_user_func_array($callback, [@$this->user->isSpam]);
@@ -756,6 +758,8 @@ class Bot extends Container
 
   public function onNewVersion($callback)
   {
+    if (!$this->db) return;
+
     if (!@$this->checkState())
         return;
 
@@ -765,6 +769,8 @@ class Bot extends Container
 
   public function onBanned($callback)
   {
+    if (!$this->db) return;
+
     if (!@$this->checkState())
         return;
 
@@ -783,11 +789,161 @@ class Bot extends Container
 
   public function onNewUser($callback)
   {
+    if (!$this->db) return;
+
     if (!@$this->checkState())
         return;
 
     if (@$this->user->isNewUser)
         call_user_func($callback);
+  }
+
+  public function isInline() {
+    return $this->isInline;
+  }
+
+  public function isSticker() {
+    return $this->isSticker;
+  }
+
+  public function isVoice() {
+    return $this->isVoice;
+  }
+
+  public function isAnimation() {
+    return $this->isAnimation;
+  }
+
+  public function isDocument() {
+    return $this->isDocument;
+  }
+
+  public function isAudio() {
+    return $this->isAudio;
+  }
+
+  public function isPhoto() {
+    return $this->isPhoto;
+  }
+
+  public function isPoll() {
+    return $this->isPoll;
+  }
+
+  public function isVideoNote() {
+    return $this->isVideoNote;
+  }
+
+  public function isVideo() {
+    return $this->isVideo;
+  }
+
+  public function isContact() {
+    return $this->isContact;
+  }
+
+  public function isLocation() {
+    return $this->isLocation;
+  }
+
+  public function isVenue() {
+    return $this->isVenue;
+  }
+
+  public function isDice() {
+    return $this->isDice;
+  }
+
+  public function isNewChatMembers() {
+    return $this->isNewChatMembers;
+  }
+
+  public function isLeftChatMember() {
+    return $this->isLeftChatMember;
+  }
+
+  public function isNewChatTitle() {
+    return $this->isNewChatTitle;
+  }
+
+  public function isNewChatPhoto() {
+    return $this->isNewChatPhoto;
+  }
+
+  public function isDeleteChatPhoto() {
+    return $this->isDeleteChatPhoto;
+  }
+
+  public function isChannelChatCreated() {
+    return $this->isChannelChatCreated;
+  }
+
+  public function isMigrateToChatId() {
+    return $this->isMigrateToChatId;
+  }
+
+  public function isPinnedMessage() {
+    return $this->isPinnedMessage;
+  }
+
+  public function isInvoice() {
+    return $this->isInvoice;
+  }
+
+  public function isSucessfulPayment() {
+    return $this->isSucessfulPayment;
+  }
+
+  public function isConnectedWebsite() {
+    return $this->isConnectedWebsite;
+  }
+
+  public function isPassportData() {
+    return $this->isPassportData;
+  }
+
+  public function isReplyMarkup() {
+    return $this->isReplyMarkup;
+  }
+
+  public function isCommand() {
+    return $this->isCommand;
+  }
+
+  public function isForward() {
+    return $this->isForward;
+  }
+
+  public function isSuperGroup() {
+    return $this->isSuperGroup;
+  }
+
+  public function isGroup() {
+    return $this->isGroup;
+  }
+
+  public function isChannel() {
+    return $this->isChannel;
+  }
+
+  public function isPrivat() {
+    return $this->isPrivat;
+  }
+
+  public function isCaption() {
+    return $this->isCaption;
+  }
+
+  public function isEditedMessage() {
+    return $this->isEditedMessage;
+  }
+
+  public function isCallback() {
+    return $this->isCallback;
+  }
+
+  public function isMessage() {
+    return $this->isMessage;
   }
 
   public function run()
@@ -902,7 +1058,7 @@ class Bot extends Container
           }
 
           $rs = call_user_func_array($message['callback'], is_string($message['callback']) ? [$this] : []);
-        
+
           $has_answer = true;
           continue;
       }

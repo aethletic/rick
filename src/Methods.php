@@ -69,8 +69,6 @@ class Methods
 
   public function isActive($chat_id, $action = 'typing')
   {
-    if (!$this->bot->isUpdate()) return;
-
       $parameters = [
           'chat_id' => $chat_id,
           'action' => $action,
