@@ -4,7 +4,7 @@
 
 **WIP** This documentation for v3.\*, in v4.\* some methods have changed.
 
-**WIP:** Ready-for-use [skeleton project](https://github.com/aethletic/botify-template) for this library + web dashboard (stats, analytics, manage)
+**WIP:** Ready-for-use [skeleton project](https://github.com/aethletic/botify-skeleton) for this library + web dashboard (stats, analytics, manage)
 
 ## ⭐ Features 
  - [Talk](#-talk) (classic chat bot)
