@@ -40,7 +40,7 @@ Do not forget to pass the module settings when initializing the bot.
  ## 📦 Installation 
  
 ```
-$ composer require aethletic/botify
+$ composer require aethletic/botify "^3.0"
 ```
 
 # Documentation
