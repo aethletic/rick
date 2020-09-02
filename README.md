@@ -38,11 +38,15 @@ include __DIR__ . '/modules/botify.admin/module.php';
 Do not forget to pass the module settings when initializing the bot.
 
  ## 📦 Installation 
- 
+
+**Stable** (now documented)
 ```
 $ composer require aethletic/botify "^3.0"
 ```
-
+**New Beta v4** (undocumented)
+```
+$ composer require aethletic/botify "^4.0"
+```
 # Documentation
 
 ### **WIP** This documentation for v3.\*, in v4.\* some methods have changed.
