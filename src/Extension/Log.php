@@ -44,7 +44,6 @@ class Log
         }
 
         // new users stats
-
         $isNewDate = $bot->db->table('stats_new_users')->where('date', $date)->count() == 0;
         if ($bot->user->isNewUser) {
             if ($isNewDate) {
@@ -59,7 +58,7 @@ class Log
         }
 
 
-        if ($bot->isMessage || $bot->isCommand) {
+        // if ($bot->isMessage || $bot->isCommand) {
             $update = $bot->update;
 
             if ($bot->isSticker) {
@@ -99,15 +98,19 @@ class Log
                 $update['message']['text'] = '📊 Голосование';
             }
 
+            if (!@$bot->user_id) {
+              return false;
+            }
+            
             $insert = [
-            'date' => time(),
-            'user_id' => $bot->user_id,
-            'user' => $bot->full_name,
-            'value' => json_encode($update, JSON_UNESCAPED_UNICODE)
-        ];
+                'date' => time(),
+                'user_id' => $bot->user_id,
+                'user' => $bot->full_name,
+                'value' => json_encode($update, JSON_UNESCAPED_UNICODE)
+            ];
 
             $bot->db->table('messages')
                     ->insert($insert);
-        }
+        // }
     }
 }

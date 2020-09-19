@@ -35,6 +35,7 @@ class Keyboard extends AbstractExtension
     {
         if (!is_array($keyboard)) {
             $keyboard = self::$keyboards[$keyboard];
+            print_r(self::$keyboards);
         }
 
         return json_encode(['inline_keyboard' => $keyboard]);

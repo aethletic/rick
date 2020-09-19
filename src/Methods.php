@@ -133,7 +133,21 @@ class Methods
       return $this->bot->api('editMessageReplyMarkup', $parameters);
   }
 
-  public function deleteMessage($chat_id, $message_id, $scopes = [])
+  public function deleteMessage($message_id, $scopes = [])
+  {
+    if (!$this->bot->isUpdate()) return;
+
+      $parameters = [
+          'chat_id' => $this->bot->chat_id,
+          'message_id' => $message_id,
+      ];
+
+      $parameters = array_merge($parameters, $scopes);
+
+      return $this->bot->api('deleteMessage', $parameters, $is_file = false);
+  }
+
+  public function deleteMessageById($chat_id, $message_id, $scopes = [])
   {
     if (!$this->bot->isUpdate()) return;
 
@@ -313,6 +327,23 @@ class Methods
       $parameters = array_merge($parameters, $scopes);
 
       return $this->bot->api('sendVideo', $parameters, $is_file = true);
+  }
+
+  public function sendSticker($chat_id, $file, $keyboard = false, $scopes = [])
+  {
+    if (!$this->bot->isUpdate()) return;
+
+      $parameters = [
+          'chat_id' => $chat_id,
+          'sticker' => $file,
+      ];
+
+      if ($keyboard)
+          $parameters['reply_markup'] = $keyboard;
+
+      $parameters = array_merge($parameters, $scopes);
+
+      return $this->bot->api('sendSticker', $parameters, $is_file = true);
   }
 
   public function sendAnimation($chat_id, $file, $text = '', $keyboard = false, $scopes = [])

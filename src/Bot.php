@@ -31,6 +31,9 @@ class Bot extends Container
   public $util;
   public $log;
 
+  public $state_name;
+  public $state_data;
+
   public $update;
   private $actions  = [];
   private $messages = [];
@@ -114,6 +117,7 @@ class Bot extends Container
   public $isConnectedWebsite = false;
   public $isPassportData = false;
   public $isReplyMarkup = false;
+  public $isReply = false;
   public $isCommand = false;
   public $isForward = false;
   public $isSuperGroup = false;
@@ -170,6 +174,8 @@ class Bot extends Container
     // User extension include only if Update exists and Database connected
     if ($this->isUpdate() && $this->db) {
       $this->user = new User(@$this->user_id);
+      $this->state_name = !empty($this->user->data['state_name']) ? $this->user->data['state_name'] : null;
+      $this->state_data = !empty($this->user->data['state_data']) ? $this->user->data['state_data'] : null;
     }
 
     if ($this->isUpdate() && $this->db && @$this->config['log.db_store_messages'] == true) {
@@ -415,6 +421,9 @@ class Bot extends Container
       if (array_key_exists('reply_markup', $this->update[$key]))
           $this->isReplyMarkup = $this->update[$key]['reply_markup'];
 
+      if (array_key_exists('reply_to_message', $this->update[$key]))
+          $this->isReply = $this->update[$key]['reply_to_message'];
+
       if (array_key_exists('entities', $this->update[$key]))
           $this->isCommand = $this->update[$key]['entities'][0]['type'] == 'bot_command' ? true : false;
 
@@ -446,6 +455,7 @@ class Bot extends Container
 
   public function checkState()
   {
+
       if (in_array($this->message, $this->stopWords))
         return false;
 
@@ -506,9 +516,11 @@ class Bot extends Container
 
       foreach ($messages as $message) {
           $id = in_array($message, $this->default_answers) ? $message : rand().rand();
-          $this->messages[$id]['callback'] = $callback;
-          $this->messages[$id]['data'] = $message;
-          $this->messages[$id]['middleware'] = $middleware_callback;
+          if (!array_key_exists($id, $this->messages)) {
+            $this->messages[$id]['callback'] = $callback;
+            $this->messages[$id]['data'] = $message;
+            $this->messages[$id]['middleware'] = $middleware_callback;
+          }
       }
   }
 
@@ -527,16 +539,16 @@ class Bot extends Container
 
       foreach ($commands as $command) {
           $id = in_array($command, $this->default_answers) ? $command : rand().rand();
-          $this->commands[$id]['callback'] = $callback;
-          $this->commands[$id]['data'] = $command;
-          $this->commands[$id]['middleware'] = $middleware_callback;
+          if (!array_key_exists($id, $this->commands)) {
+            $this->commands[$id]['callback'] = $callback;
+            $this->commands[$id]['data'] = $command;
+            $this->commands[$id]['middleware'] = $middleware_callback;
+          }
       }
   }
 
   public function callback($actions = null, $callback = null)
   {
-      if ($this->isSkipped()) return;
-
       $middleware_callback = $this->getCurrentMiddleware();
 
       if (!$actions || !$callback)
@@ -550,9 +562,11 @@ class Bot extends Container
 
       foreach ($actions as $action) {
           $id = in_array($action, $this->default_answers) ? $action : rand().rand();
-          $this->actions[$id]['callback'] = $callback;
-          $this->actions[$id]['data'] = $action;
-          $this->actions[$id]['middleware'] = $middleware_callback;
+          if (!array_key_exists($id, $this->actions)) {
+            $this->actions[$id]['callback'] = $callback;
+            $this->actions[$id]['data'] = $action;
+            $this->actions[$id]['middleware'] = $middleware_callback;
+          }
       }
   }
 
@@ -906,6 +920,10 @@ class Bot extends Container
     return $this->isReplyMarkup;
   }
 
+  public function isReply() {
+    return $this->isReply;
+  }
+
   public function isCommand() {
     return $this->isCommand;
   }
@@ -948,7 +966,6 @@ class Bot extends Container
 
   public function run()
   {
-
     header('Content-Type: application/json');
     if (!$this->isUpdate()) {
       header('Content-Type: application/json');

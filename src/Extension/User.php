@@ -27,7 +27,7 @@ class User extends AbstractExtension
     parent::__construct();
 
     $this->id = $id;
-    $this->row = $is_user_id ? 'user_id' : 'id';
+    $this->row = 'user_id';// $is_user_id ? 'user_id' : 'id';
     $this->db = $this->bot->db;
 
     // check admin rights
@@ -114,6 +114,14 @@ class User extends AbstractExtension
     return $this->db->table('users')->count();
   }
 
+  public function getState()
+  {
+    return [
+      'name' => $this->data['state_name'],
+      'data' => $this->data['state_data'],
+    ];
+  }
+
   public function getStateData($data_json_decode = false)
   {
     $res = $this->db->table('users')->select('state_name', 'state_data')->where($this->row, $this->id)->get();
@@ -124,10 +132,7 @@ class User extends AbstractExtension
 
     $user = $res[0];
 
-    return [
-      'state_name' => $user['state_name'],
-      'state_data' => $data_json_decode ? json_decode($user['state_data']) : $user['state_data'],
-    ];
+    return $data_json_decode ? json_decode($user['state_data']) : $user['state_data'];
   }
 
   public function getStateDataById($user_id, $data_json_decode = false)
@@ -140,10 +145,7 @@ class User extends AbstractExtension
 
     $user = $res[0];
 
-    return [
-      'name' => $user['state_name'],
-      'data' => $data_json_decode ? json_decode($user['state_data']) : $user['state_data'],
-    ];
+    return $data_json_decode ? json_decode($user['state_data']) : $user['state_data'];
   }
 
   public function clearState()
@@ -249,6 +251,8 @@ class User extends AbstractExtension
 
   public function ban($from, $to, $comment = null)
   {
+    $this->clearState();
+
     $update = [
       'is_banned' => 1,
       'ban_from' => $from,
@@ -261,6 +265,8 @@ class User extends AbstractExtension
 
   public function banById($user_id, $from, $to, $comment = null)
   {
+    $this->clearStateById($user_id);
+
     $update = [
       'is_banned' => 1,
       'ban_from' => $from,

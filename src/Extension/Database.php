@@ -60,6 +60,7 @@ class Database extends AbstractExtension
       `first_name` text DEFAULT NULL,
       `last_name` text DEFAULT NULL,
       `username` text DEFAULT NULL,
+      `role` text DEFAULT NULL,
       `nickname` text DEFAULT NULL,
       `user_icon` text DEFAULT NULL,
       `lang` text DEFAULT NULL,
@@ -72,6 +73,7 @@ class Database extends AbstractExtension
       `state_data` mediumtext DEFAULT NULL,
       `is_active` tinyint(4) DEFAULT NULL,
       `bot_version` text DEFAULT NULL,
+      `from_source` text DEFAULT NULL,
       `note` text DEFAULT NULL,
       PRIMARY KEY (`id`)
     );";
