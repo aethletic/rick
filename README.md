@@ -6,7 +6,7 @@
 
 **WIP** This documentation for v3.\*, in v4.\* some methods have changed.
 
-**WIP:** Ready-for-use [skeleton project](https://github.com/aethletic/botify-skeleton) for this library + web dashboard (stats, analytics, manage)
+**WIP:** Ready-for-use [skeleton project](https://github.com/chipslays/botify-skeleton) for this library + web dashboard (stats, analytics, manage)
 
 ## ⭐ Features 
  - [Talk](#-talk) (classic chat bot)
@@ -28,9 +28,9 @@
 You make a module once and then use it in future projects so as not to waste time re-developing it.
 
 Modules for this framework:
-- (rus) [botify-module.start](https://github.com/aethletic/botify-module.start) - notification about new users
-- (rus) [botify-module.admin](https://github.com/aethletic/botify-module.admin) - manage users 
-- [botify-module.stats](https://github.com/aethletic/botify-module.stats) - stats for message, users
+- (rus) [botify-module.start](https://github.com/chipslays/botify-module.start) - notification about new users
+- (rus) [botify-module.admin](https://github.com/chipslays/botify-module.admin) - manage users 
+- [botify-module.stats](https://github.com/chipslays/botify-module.stats) - stats for message, users
 
 > **NOTE:** Include module file immediately after the bot initialization.
 ```php
@@ -43,11 +43,11 @@ Do not forget to pass the module settings when initializing the bot.
 
 **Stable** (now documented)
 ```
-$ composer require aethletic/botify "^3.0"
+$ composer require chipslays/botify "^3.0"
 ```
 **New Beta v4** (undocumented)
 ```
-$ composer require aethletic/botify "^4.0"
+$ composer require chipslays/botify "^4.0"
 ```
 # Documentation
 
@@ -71,7 +71,7 @@ $ composer require aethletic/botify "^4.0"
  - [Logs](#-logs)
 
 ## 👀 Examples bot
-**More bot examples can see [here](https://github.com/aethletic/botify/tree/master/examples).**
+**More bot examples can see [here](https://github.com/chipslays/botify/tree/master/examples).**
 
 Simple Hello World bot.
 ```php
@@ -115,7 +115,7 @@ $config = [
     'bot.default_lang'  => 'ru',
 
     // (OPTIONAL) List of usernames (without @) OR user_id (12345677899) of users who are administrators
-    'admin.list'        => ['aethletic'],
+    'admin.list'        => ['chipslays'],
     'admin.password'    => ['pa$$word'],
 
     // (OPTINAL) deafult parse mode
@@ -477,13 +477,13 @@ Sample received message:
             "id": 436432850,
             "is_bot": false,
             "first_name": "чипсы лейс",
-            "username": "aethletic",
+            "username": "chipslays",
             "language_code": "ru"
         },
         "chat": {
             "id": 436432850,
             "first_name": "чипсы лейс",
-            "username": "aethletic",
+            "username": "chipslays",
             "type": "private"
         },
         "date": 1590836349,
