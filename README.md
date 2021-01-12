@@ -1,6 +1,8 @@
 
-# Botify 🧙‍♂️
+# Abandoned: 🧙‍♂️ Botify 
 #### Simple & developer-friendly Telegram Bot Api Library for PHP.
+
+# Use this [Telegram Bot API library](https://github.com/chipslays/telegram-bot-api)
 
 **WIP** This documentation for v3.\*, in v4.\* some methods have changed.
 
