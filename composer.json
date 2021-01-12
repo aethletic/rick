@@ -1,19 +1,19 @@
 {
-    "name": "aethletic/botify",
+    "name": "chipslays/botify",
     "description": "Simple but powerful Telegram Bot API library for PHP.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "aethletic",
-            "email": "hello@botify.ru"
+            "name": "chipslays",
+            "email": "hello@chipslays.ru"
         }
     ],
     "require": {
       "php": ">=5.4.0",
-      "aethletic/container": "*",
-      "aethletic/database": "^1.0",
-      "aethletic/phpmorphy": "^1.0"
+      "chipslays/container": "*",
+      "chipslays/database": "^1.0",
+      "chipslays/phpmorphy": "^1.0"
     },
     "autoload": {
         "psr-4": {
